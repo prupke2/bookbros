@@ -1,0 +1,22 @@
+.rounded-link, input[type="submit"] {
+	margin: 5px;
+	padding: 7px 10px;
+	height: auto;
+	font-size: 1.1rem;
+	background: var(--fglink);
+	text-decoration: none;
+	color: white;
+	display: inline-block;
+	width: auto;
+	text-align: center;
+	border-radius: 25px;
+	border: 2px solid var(--main);
+	background: var(--gradient);
+	transition: transform 0.1s ease-in-out;
+	&:hover {
+		transition: background 0.15s ease, color 0.15s ease;
+		opacity: 1;
+		cursor: pointer;
+		background: var(--gradient2);
+	}
+}

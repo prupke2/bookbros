@@ -1,0 +1,164 @@
+// Place all the styles related to the Ratings controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.show-book {
+	padding-top: 40px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: top;
+	flex-wrap: wrap;
+	div {
+		// width: calc(50vw - 20px);
+		// margin: 50px 10px;
+		padding: 0;
+	}
+}
+
+.show-book-page-cover {
+	section {
+		flex-direction: column;
+	}
+	// margin-top: 10px;
+	.book-image img {		
+		// padding-top: 120px;
+		height: auto;
+		// width: 400px;
+	}
+
+	ul {
+		flex-direction: column;
+	}
+}
+
+#book-synopsis {
+	margin: 10px 20px;
+	padding: 5px;
+	background: var(--gradient);
+	border-radius: 4px;
+	width: calc(29.5vw + 60px);
+	// display: block;
+	font-size: 0.8rem;
+	font-style: italic;
+	background: var(--gradient3);
+	color: black;
+	z-index: 2;
+	height: auto;
+	text-overflow: ellipsis;
+	transition: height 0.15s ease, padding 0.15s ease, width 0.1s ease, left 0.1s ease;
+	p {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		span {
+			text-align: left;
+			margin: 0;
+		}
+
+		.categories, .pages, .published {
+			display: inline-block;
+			font-weight: bold;
+		}
+
+		.synopsis {
+			margin-top: 5px;
+		}
+		
+		.synopsis {
+			font-weight: normal;
+			font-style: italic;
+		}
+	}
+
+}
+
+.show-page-ratings {
+	top: 10vh;
+	left: 42vw;
+	display: flex;
+	margin: 10px auto;
+	padding: 15px 5px;
+	display: flex;
+	justify-content: center;
+	align-items: left;
+	// color: black;
+}
+
+.book-search-links a, .show-book-search-links a {
+	margin: 10px auto;
+}
+
+.ratings li {
+	text-align: center;
+	mix-blend-mode: unset;
+}
+
+.rating {
+	.center {
+		text-align: center;
+	}
+	p {
+		display: inline-block;
+		margin: 10px 10px 5px 5px;
+		max-width: 55vw;
+	}
+}
+
+.rating-notes {
+	background: var(--main, skyblue);
+
+}
+
+p.rating-notes-show {
+	margin-bottom: 15px;
+	display: block;
+	background: var(--gradient);
+	width: 100%;
+	padding: 5px;
+	border-radius: 4px;
+}
+
+.edit-delete-links {
+    display: flex;
+    margin: 10px;
+}
+
+.rating:hover .rating-notes {
+	display: inline-block;
+}
+
+
+.fixed-average-rating {
+	position: absolute;
+	width: 25vw;
+	right: 15vw;
+	top: 90px;
+	text-align: center;
+	min-width: 270px;
+}
+
+.edit-rating {
+	background: var(--gradient2);
+	border-radius: 4px;
+	padding: 2px;
+}
+
+.edit-rating-page {
+	display: flex;
+	flex-direction: column;
+	justify-content: top;
+	align-items: center;
+	flex-wrap: wrap;
+	form {
+		flex-direction: column;
+		width: 80vw;
+		label {
+			display: none;
+		}
+		textarea {
+			max-width: 600px;
+		}
+	}
+}
