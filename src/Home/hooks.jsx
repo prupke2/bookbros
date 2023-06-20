@@ -47,28 +47,12 @@ Sample results:
 
 export const getBooks = async () => {
   const query = new Parse.Query('Books');
-  // You can also query by using a parameter of an object
-  // query.equalTo('objectId', 'xKue915KBG');
 	const results = await query.find();
 	return results
 };
 
-export const getBook = async () => {
-  const query = new Parse.Query('Books').equalTo('objectId', 'xKue915KBG');
-  // You can also query by using a parameter of an object
-  // query.equalTo('objectId', 'xKue915KBG');
+export const getBook = async (objectId) => {
+  const query = new Parse.Query('Books').equalTo('objectId', objectId);
 	const results = await query.find();
-
-  // try {
-  //   for (const object of results) {
-  //     // Access the Parse Object attributes using the .GET method
-	// 		const bookId = book.get('book_id');
-	// 		const user = book.get('user');
-	// 		const author = book.get('author');
-	// 		const title = book.get('title');
-  //   }
-  // } catch (error) {
-  //   console.error('Error while fetching', error);
-	// }
 	return results
 };
