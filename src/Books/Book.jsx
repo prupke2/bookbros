@@ -1,70 +1,46 @@
-import React, {FC} from 'react';
+import React from 'react';
+import './Book.scss';
+import RatingForm from './RatingForm/RatingForm';
+import { useState } from 'react';
 
-// interface bookObject {
-
-// }
-
-export interface BookProps {
-	book_id: string,
-	title: string,
-	author: string,
-	user: string,
-	created_at: string,
-}
-
-export default function Book({ book_id, title, author, user, created_at }: BookProps) {
-	// console.log(`id: ${book_id}`);
-	// console.log(`title: ${title}`);
-	// console.log(`book: ${JSON.stringify(book, null, 4)}`);
-	// console.log(`book.book_id: ${book_id}`);
-	console.log(`created_at: ${created_at}`);
+const Book = ({ book }) => {
+	const objectId = book.id;
+	const bookId = book.get('book_id');
+	const user = book.get('user');
+	const author = book.get('author');
+	const title = book.get('title');
+	const [ratingFormOpen, setRatingFormOpen] = useState(false);
 
 	return (
 		<li>
 			<section>
-				<figure className="book-cover" id={book_id}>	
-					<a href={`/posts/${book_id}`} className="book-cover-link">
+				<figure className="book-cover" id={bookId}>	
+					<a href={`/posts/${bookId})}`} className="book-cover-link">
 						<span className='selected-by'>
 							Selected by <span className='name opaque-background'>{user}</span>
 						</span>
 						<span className="book-image">
-							<img src={`https://books.google.com/books/content/images/frontcover/${book_id}?fife=w1200-h800`}
+							<img src={`https://books.google.com/books/content/images/frontcover/${bookId}?fife=w1200-h800`}
 								alt={`${title} by ${author} (No book cover available)`} />
 						</span>
 					</a>	
 				
 					<figcaption>
 								
-						<button type="button" className="rounded-link add-rating " id = {`form-${title}-button`} >
-							{/* onClick="getForm('form-<%= book.book %>')" */}
-							<span>Add rating</span>
+						<button 
+							type="button" 
+							className="rounded-link add-rating" 
+							id = {`form-${title}-button`} 
+							onClick={() => setRatingFormOpen(!ratingFormOpen)}
+						>
+							Add rating
 						</button>
 
-						<div className="rating-form-wrapper " id={`form-${title}-button`}>
-							{/* <%= form_for :rating, url: ratings_path do |f| %>
-								<%= f.label :book %>
-								<%= f.hidden_field :book, :value => book.book %>	 */}
-								<p>	
-									{/* <%= f.label :name %>
-									<%= f.text_field :name, placeholder: "Name", autocomplete: "off", required: "true",
-									value: session['name'], maxLength: 24 %> */}
-								</p>
-								{/* <span className="range-output">
-									<output name="output" for = "rating_rating">?</output>
-								</span> */}
-								<p>
-									{/* <%= f.label :rating, autocomplete: "off" %> */}
-									{/* <input min="0" max="10" type="range" step="0.5" name="rating[rating]" id="rating_rating" 
-									required onInput="output.value=parseFloat(rating_rating.value)" /> */}
-								{/* </span> */}
-								</p>
-							{/* </p> */}
-								{/* <%= f.text_area :notes, placeholder: "Notes (optional)", autocomplete: "off", maxLength: 400 %> */}
-							<p>
-								{/* <%= f.submit %> */}
-							</p>
-
-							{/* <% end %>	 */}
+						<div className={`rating-form-wrapper ${ratingFormOpen && 'form-show'}`} id={`form-${title}-button`}>
+							<RatingForm
+								objectId={objectId}
+								open={ratingFormOpen}
+							/>
 						</div>
 					</figcaption>
 				</figure>
@@ -74,13 +50,12 @@ export default function Book({ book_id, title, author, user, created_at }: BookP
 						<li className='book-title-wrapper'>
 							<span className="book-title">{title}</span>
 						</li>
-
-						{/* <% if book.author != 'undefined' %> */}
+						{ author && (
 							<li className='book-author-wrapper'>
 								<span className="by">by</span>
 								<span className="book-author">{author}</span>
 							</li>
-						{/* <% end %> */}
+						)}
 					</ul>	
 					{/* <ul className="ratings">
 						<% if @ratings and @rating_count %>
@@ -157,3 +132,5 @@ export default function Book({ book_id, title, author, user, created_at }: BookP
 		</li>
 	);
 }
+
+export default Book;
