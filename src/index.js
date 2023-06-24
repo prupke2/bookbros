@@ -7,11 +7,20 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import ErrorPage from './ErrorPage/ErrorPage';
+import BookSearch from './BookSearch/BookSearch';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/search",
+        element: <BookSearch />,
+      },
+    ],
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
