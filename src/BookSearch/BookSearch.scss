@@ -1,3 +1,28 @@
+#root {
+	background: skyblue; // fallback
+	background-color: rgba(198,231,241,1);
+	background: linear-gradient(to right, rgba(0,0,100,.3), rgba(255,100,127,.2)), radial-gradient(closest-corner at 50% 50%, teal, black);
+	min-height: 100vh;
+	min-width: 100vw;
+}
+
+main {
+	z-index: 1;
+	padding: 0 0 200px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	background: skyblue; // fallback
+	background-color: rgba(198,231,241,1);
+	background: url(../../public/books_background_tinted.png) no-repeat, 
+	linear-gradient(to right, rgba(0,0,100,.3), rgba(255,100,127,.2)), radial-gradient(closest-corner at 50% 50%, teal, black);
+	background-size: 100vw;
+	min-height: 100vh;
+	background-position: bottom right, left;
+}
+
 .tinted-background {
 	text-align: center;
 	background: rgba(107, 209, 251, 0.5);

@@ -3,19 +3,13 @@ import './BookSearch.scss';
 import { useSearchParams } from "react-router-dom";
 import Form from '../Form/Form';
 
-interface Props {
-	books?: object;
-	bookSearch?: string;
-	
-}
-
-const BookSearch: FC<Props> = ({ }) => {
+const BookSearch = ({ }) => {
 	let [searchParams, setSearchParams] = useSearchParams();
 	const bookSearch = searchParams.get('book_search');
 
 	return (
 		<div>
-			asdf
+			 <span>.</span>
 			{/* <% if !params[:book_search] %> */}
 			{ !bookSearch &&
 				<>
