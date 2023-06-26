@@ -1,6 +1,6 @@
 import React from 'react';
-import './Book.scss';
-import RatingForm from './RatingForm/RatingForm';
+import '../Books.scss';
+import RatingForm from '../RatingForm/RatingForm';
 import { useState } from 'react';
 
 const Book = ({ book }) => {

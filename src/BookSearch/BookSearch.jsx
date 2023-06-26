@@ -1,28 +1,73 @@
-import React, {FC} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './BookSearch.scss';
 import { useSearchParams } from "react-router-dom";
-import Form from '../Form/Form';
+import { fetchGoogleBooks } from './hooks';
+import BookResult from './BookResult/BookResult';
+import Navbar from '../Navbar/Navbar';
 
-const BookSearch = ({ }) => {
-	let [searchParams, setSearchParams] = useSearchParams();
+const BookSearch = () => {
+	const [searchParams, setSearchParams] = useSearchParams();
 	const bookSearch = searchParams.get('book_search');
+	const [bookResults, setBookResults] = useState([]);
+	const activeSearch = useRef(false);
+
+	const noResults = bookSearch !== null && bookResults?.length === 0;
+
+	function formHandler(e) {
+		activeSearch.current = true;
+		setSearchParams(e.target.value);
+	}
+
+	useEffect(() => {
+		if (bookSearch) {
+			fetchGoogleBooks(bookSearch, setBookResults);
+			activeSearch.current = false;
+		}
+	}, [bookSearch, activeSearch])
+
 
 	return (
-		<div>
-			 <span>.</span>
-			{/* <% if !params[:book_search] %> */}
-			{ !bookSearch &&
-				<>
-					<h2>Find a book</h2>
-					<p className="tinted-background">Search by title, author, or both.</p>
-				</>	
-			}
-			
-			<form id="book_search_form">
-				<input type="text" id="book_search" name="book_search" required value={bookSearch || ''} />
-				<input className="rounded-link solid-link" type="submit" value="Search books" />
-			</form>
-		</div>
+		<main>
+			<Navbar />
+			<div>
+				{ !bookSearch &&
+					<>
+						<h2>Add a book</h2>
+						<p className="tinted-background">Search by title, author, or both.</p>
+					</>	
+				}
+				
+				<form id="book_search_form" onSubmit={(e) => formHandler(e)}>
+					<input type="text" id="book_search" name="book_search" required />
+					<input className="rounded-link solid-link" type="submit" value="Search books" />
+				</form>
+
+				{ noResults && (
+					<p>
+						No results found for {bookSearch}
+					</p>
+				)}
+
+				{ (bookSearch && bookResults) && (
+					<>
+						<p className="tinted-background">
+							Showing results for { bookSearch }. Now select a book for your club!
+						</p>
+						<ul id="book-search-results">
+							{bookResults.map(book => (
+								<BookResult
+									key={book.id}
+									book={book}
+								/>
+							)
+							)}
+						</ul>
+					</>
+				)}
+
+			</div>
+		</main>
+
 	);
 }
 
