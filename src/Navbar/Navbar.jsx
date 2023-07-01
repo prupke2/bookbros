@@ -1,7 +1,7 @@
 import React from 'react';
 import './Navbar.scss';
 
-const Navbar = ({ brand, setBrand }) => {
+const Navbar = ({ brand, setBrand, currentTab, setCurrentTab }) => {
 
 	const switchBrand = () => {
 		if (brand === 'Book Bros') {
@@ -16,14 +16,15 @@ const Navbar = ({ brand, setBrand }) => {
 
 	const brandFileName = brand === 'Book Bros' ? 'bookbros_logo_small.png' : 'bookbabes_logo_small.png';
 	const brandImage = `${process.env.PUBLIC_URL}/${brandFileName}`;
+	const switchBrandName = brand === 'Book Bros' ? 'Book Babes' : 'Book Bros';
 
 	return (
 		<nav>
 			<ul>
 				<li 
-					className="nav-logo-container" 
-					onClick={() => switchBrand()}
-					title="Switch brand"
+					className="nav-logo-container"
+					onClick={switchBrand === null ? null : () => switchBrand()}
+					title={`Switch to ${switchBrandName}`}
 				>
 					<div className="nav-logo" >
 						<img src={brandImage} alt={brand} />
@@ -32,14 +33,14 @@ const Navbar = ({ brand, setBrand }) => {
 				<li className="nav-links">
 					<ul>
 						<li>
-							<a href="/">
+							<button className="nav-button" onClick={() => setCurrentTab('Home')}>
 								Home
-							</a>
+							</button>
 						</li>
 						<li>
-							<a href="/search">
+							<button className="nav-button" onClick={() => setCurrentTab('Search')}>
 								Add a book
-							</a>
+							</button>
 						</li>
 					</ul>
 					<span id="hamburger-menu">≡</span>

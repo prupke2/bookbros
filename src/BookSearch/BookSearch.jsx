@@ -1,17 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './BookSearch.scss';
-import { useSearchParams } from "react-router-dom";
 import { fetchGoogleBooks } from './hooks';
 import BookResult from './BookResult/BookResult';
-import Navbar from '../Navbar/Navbar';
 
-const BookSearch = () => {
-	const [searchParams, setSearchParams] = useSearchParams();
+const BookSearch = ({ searchParams, setSearchParams}) => {
 	const bookSearch = searchParams.get('book_search');
 	const [bookResults, setBookResults] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 	const activeSearch = useRef(false);
 
-	const noResults = bookSearch !== null && bookResults?.length === 0;
+	const noResults = bookSearch !== null && bookResults?.length === 0 && !isLoading;
 
 	function formHandler(e) {
 		activeSearch.current = true;
@@ -20,15 +18,16 @@ const BookSearch = () => {
 
 	useEffect(() => {
 		if (bookSearch) {
+			setIsLoading(true);
 			fetchGoogleBooks(bookSearch, setBookResults);
 			activeSearch.current = false;
+			setIsLoading(false);
 		}
 	}, [bookSearch, activeSearch])
 
 
 	return (
 		<main>
-			<Navbar />
 			<div>
 				{ !bookSearch &&
 					<>
@@ -42,7 +41,19 @@ const BookSearch = () => {
 					<input className="rounded-link solid-link" type="submit" value="Search books" />
 				</form>
 
-				{ noResults && (
+				{ isLoading && (
+					<>
+						<div className="loader book">
+							<figure className="page"></figure>
+							<figure className="page"></figure>
+							<figure className="page"></figure>
+						</div>
+					
+						<div>Loading</div>
+					</>
+				)}
+
+				{ noResults && !isLoading && (
 					<p>
 						No results found for {bookSearch}
 					</p>
@@ -51,7 +62,7 @@ const BookSearch = () => {
 				{ (bookSearch && bookResults) && (
 					<>
 						<p className="tinted-background">
-							Showing results for { bookSearch }. Now select a book for your club!
+							Showing results for {bookSearch}. Now select a book for your club!
 						</p>
 						<ul id="book-search-results">
 							{bookResults.map(book => (
