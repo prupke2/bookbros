@@ -13,7 +13,7 @@ const Home = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const bookSearch = searchParams.get('book_search');
 
-	const [currentTab, setCurrentTab] = useState(bookSearch ? 'Search' : 'Home'); 
+	const [currentTab, setCurrentTab] = useState(bookSearch ? 'Add a book' : 'Home'); 
 
 	return (
 		<main>
@@ -28,7 +28,7 @@ const Home = () => {
 					brand={brand}
 				/>
 			)}
-			{currentTab === 'Search' && (
+			{currentTab === 'Add a book' && (
 				<BookSearch 
 					searchParams={searchParams}
 					setSearchParams={setSearchParams}
