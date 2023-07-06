@@ -1,5 +1,6 @@
 import React from 'react';
 import './Navbar.scss';
+import NavTab from './NavTab/NavTab';
 
 const Navbar = ({ brand, setBrand, currentTab, setCurrentTab }) => {
 
@@ -32,16 +33,16 @@ const Navbar = ({ brand, setBrand, currentTab, setCurrentTab }) => {
 				</li> 
 				<li className="nav-links">
 					<ul>
-						<li>
-							<button className="nav-button" onClick={() => setCurrentTab('Home')}>
-								Home
-							</button>
-						</li>
-						<li>
-							<button className="nav-button" onClick={() => setCurrentTab('Search')}>
-								Add a book
-							</button>
-						</li>
+						<NavTab
+							name="Home"
+							currentTab={currentTab}
+							setCurrentTab={setCurrentTab}
+						/>
+						<NavTab
+							name="Add a book"
+							currentTab={currentTab}
+							setCurrentTab={setCurrentTab}
+						/>
 					</ul>
 					<span id="hamburger-menu">≡</span>
 				</li>
