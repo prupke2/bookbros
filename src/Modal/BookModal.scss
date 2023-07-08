@@ -1,0 +1,90 @@
+.ReactModal__Overlay--after-open {
+	background-color: black;
+	
+}
+
+.ReactModal__Content {
+	position: fixed !important;
+	background-color: black !important;
+	border: 2px solid white !important;
+  width: 90vw;
+  min-width: 400px;
+  margin-left: 2vw;
+  height: 88vh;
+	margin-top: 3vh;
+}
+
+.book-cover-modal {
+	justify-content: space-around;
+	img {
+		width: auto;
+		min-height: 320px;
+		max-height: 500px;
+		margin-right: 20px;
+	}
+}
+
+#user-name {
+	cursor: auto;
+	text-align: center;
+	background: var(--gradient-light);
+	border-radius: 16px;
+	&:hover, &:active, &:focus {
+		box-shadow: var(--shadow);
+	}
+}
+
+.user-name-label {
+	margin: 15px 5px;
+}
+
+#select-book-button:disabled {
+	background-color: grey;
+	cursor: not-allowed;
+}
+
+.close-button-wrapper {
+  display: flex;
+	justify-content: right;
+}
+
+.adjust-position {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.close-modal {
+  display: flex;
+	font-size: 20px;
+	padding: 3px 9px 5px 7px;
+	background-color: var(--opaque);
+	color: white !important;
+	border-radius: 8px;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.categories, .pageCount {
+	font-variant: small-caps;
+}
+
+.published {
+	font: monospace;
+	font-size: 0.8rem;
+}
+
+.synopsis {
+	margin: 10px 0;
+}
+
+.select-book-button-wrapper {
+	display: flex;
+	justify-content: center;
+	margin: 30px 0 10px;
+}
+
+.blur-background {
+	filter: blur(2px);
+}
