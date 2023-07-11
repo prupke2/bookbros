@@ -69,7 +69,7 @@ const Books = ({ brand, clubId }) => {
 						{books?.map(
 							(book, index) => {
 								return (
-									<div key={index}>
+									<li key={index}>
 										{ index === 0 && (
 											<div className="book-text current-book-text">
 												| Current book |
@@ -82,7 +82,7 @@ const Books = ({ brand, clubId }) => {
 										{ (index === 0 && books.length > 1) &&
 											<div className="book-text previous-books">| Previous books |</div>
 										}
-									</div>
+									</li>
 								);
 							}
 						)}
