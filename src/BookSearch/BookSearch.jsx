@@ -4,7 +4,7 @@ import { fetchGoogleBooks } from './hooks';
 import BookResult from './BookResult/BookResult';
 import Loading from '../Loading/Loading';
 
-const BookSearch = ({ searchParams, setSearchParams}) => {
+const BookSearch = ({ searchParams, setSearchParams, setCurrentTab }) => {
 	const bookSearch = searchParams.get('book_search');
 	const [bookResults, setBookResults] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +16,7 @@ const BookSearch = ({ searchParams, setSearchParams}) => {
 			setIsLoading(true);
 			fetchGoogleBooks(bookSearch, setBookResults, setIsLoading);
 		}
-	}, [bookSearch])
+	}, [bookSearch]);	
 
 	return (
 		<div>
@@ -49,7 +49,8 @@ const BookSearch = ({ searchParams, setSearchParams}) => {
 						{bookResults.map(book => (
 							<BookResult
 								key={book.id}
-								book={book}
+								result={book}
+								setCurrentTab={setCurrentTab}
 							/>
 						)
 						)}

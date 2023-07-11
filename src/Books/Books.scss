@@ -489,7 +489,8 @@ figcaption {
 	position: relative;
 	color: white;
 	top: 0;
-	opacity: 0.85;
+	opacity: 1;
+	background: var(--gradient2);
 	transform: none;
 	transition: all .15s ease;
 	z-index: 2;
@@ -547,13 +548,19 @@ form {
 		font-size: 0.9rem;
 		overflow: auto;
 		resize: vertical;
-		
+		max-height: 200px;
+		min-height: 80px;
 	}
 
 	input[type="submit"] {
 		height: 38px;
 		width: auto;
 		background: rgba(107, 209, 251, 1);
+	}
+
+	input[type="submit"]:hover:disabled {
+		cursor: not-allowed;
+		background-color: grey;
 	}
 }
 
@@ -591,26 +598,19 @@ form {
 
 // ----------------------- Ratings form -----------------------------
 
+form h3 {
+	margin-bottom: 20px;
+	background: transparent;
+}
+
 .form-show {
 	height: 100%;
 	max-height: 100%;
 	overflow: show;
 	max-width: 50vw;
 	/*height: 120%;*/
-	top: -192px;
+	top: -200px;
 	transition: top 150ms ease, height 150ms ease;
-}
-
-figure:hover .add-rating {
-	background: var(linkfg);
-	opacity: 1;
-	height: 52px;
-	width: 180px;
-	transition: width .15s ease-in-out, padding .15s ease, top .15s ease, opacity .15s ease, height .15s ease;
-}
-
-figure:hover .move-add-rating-up {
-	height: 42px;
 }
 
 figcaption:hover div.rating-title {
@@ -620,7 +620,7 @@ figcaption:hover div.rating-title {
 
 .average-rating {
 	display: block;
-	height: 30px;
+	height: 45px;
 	border: 2px solid transparent;
 	background: var(--main);
 	border-radius: 25px;
@@ -702,7 +702,7 @@ figcaption:hover div.rating-title {
 	font-weight: bold;	
 	padding: 2px 4px;
 	border-radius: 4px;
-	width: 50px;
+	min-width: 50px;
 	margin: 0 auto;
 	text-align: center;
 }
@@ -773,8 +773,8 @@ figcaption:hover div.rating-title {
 	min-height: 300px;
 }
 
-.book-title-wrapper, .book-author-wrapper {
-	// max-width: 500px;
+.book-image:hover {
+	cursor: pointer;
 }
 
 .book-title {
@@ -830,6 +830,9 @@ section {
 	display: flex;
 	flex-direction: column;
 	margin: 5px auto;
+	color: yellow;
+	background: black;
+	border-radius: 16px;
 }
 
 /* this is used with the range input for the ratings*/

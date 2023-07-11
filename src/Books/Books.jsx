@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Book from '../Books/Book/Book';
 import { getBooks } from './hooks';
 
-const Books = ({ brand }) => {
+const Books = ({ brand, clubId }) => {
 	const [books, setBooks] = useState([]);
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(true)
@@ -27,20 +27,19 @@ const Books = ({ brand }) => {
 		};
 	}, [logo?.classList, scrollPosition]);
 	
-	const fetchBooks = async () => {
-		try {
-			const result = await getBooks();
-			setBooks(result);
-		} catch (error) {
-			setError(error)
-		} finally {
-			setIsLoading(false);
-		}
-	};
-
 	useEffect(() => {
+		async function fetchBooks() {
+			try {
+				const booksResult = await getBooks(clubId);
+				setBooks(booksResult);
+			} catch (error) {
+				setError(error)
+			} finally {
+				setIsLoading(false);
+			}
+		};
 		fetchBooks();
-	}, []);
+	}, [clubId]);
 	
 	// TO DO: improve loading and error states
 	if (isLoading) {
@@ -70,7 +69,7 @@ const Books = ({ brand }) => {
 						{books?.map(
 							(book, index) => {
 								return (
-									<>
+									<div key={index}>
 										{ index === 0 && (
 											<div className="book-text current-book-text">
 												| Current book |
@@ -78,12 +77,12 @@ const Books = ({ brand }) => {
 										)}
 										<Book
 											book={book}
-											key={index}
+											clubId={clubId}
 										/>
 										{ (index === 0 && books.length > 1) &&
 											<div className="book-text previous-books">| Previous books |</div>
 										}
-									</>
+									</div>
 								);
 							}
 						)}

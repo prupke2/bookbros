@@ -15,12 +15,12 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "/search",
-        element: <BookSearch />,
-      },
-    ],
+    // children: [
+    //   {
+    //     path: "/search",
+    //     element: <BookSearch />,
+    //   },
+    // ],
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));

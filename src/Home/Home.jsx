@@ -13,7 +13,17 @@ const Home = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const bookSearch = searchParams.get('book_search');
 
+	const clubIdParam = searchParams.get('club_id');
+	const [clubId, setClubId] = useState(clubIdParam || localStorage.getItem("bookbros_club_id") || null);
+
 	const [currentTab, setCurrentTab] = useState(bookSearch ? 'Add a book' : 'Home'); 
+
+	if (!clubId && clubIdParam) {
+		setClubId(clubIdParam);
+		localStorage.setItem("bookbros_club_id", clubId);
+		// remove the club_id param but keep it in local storage
+		window.history.replaceState(null, '', window.location.pathname);
+	}
 
 	return (
 		<main>
@@ -26,12 +36,14 @@ const Home = () => {
 			{currentTab === 'Home' && (
 				<Books 
 					brand={brand}
+					clubId={clubId}
 				/>
 			)}
 			{currentTab === 'Add a book' && (
 				<BookSearch 
 					searchParams={searchParams}
 					setSearchParams={setSearchParams}
+					setCurrentTab={setCurrentTab}
 				/>
 			)}
 		</main>
