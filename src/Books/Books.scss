@@ -385,8 +385,11 @@ ul {
 	li {
 		font-size: 1.3rem; 
 		list-style-type: none;
-		display: inline-block;
+		display: flex;
 		mix-blend-mode: hard-light;
+	}
+	li:nth-child(even) section {
+		flex-direction: row-reverse;
 	}
 }
 
@@ -799,6 +802,7 @@ figcaption:hover div.rating-title {
 
 section {
 	display: flex;
+	flex-direction: row;
 	min-height: 500px;
 	justify-content: center;
 	ul {
