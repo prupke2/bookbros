@@ -2,28 +2,34 @@ import React, { useState } from 'react';
 import { saveRatingAsync, getAverageRating, setAverageRating } from './hooks';
 import CloseModalButton from '../../Modal/CloseModalButton';
 
-const RatingForm = ({ book, bookId, clubId, objectId, title, open, setRatingFormOpen }) => {
+const RatingForm = ({ book, bookId, clubId, objectId, title, open, setRatingFormOpen, setUpdateRatings }) => {
 	const [currentRating, setCurrentRating] = useState('?');
 	let usernameLocalStorage = localStorage.getItem("bookbros_user_name");
 	const [username, setUsername] = useState(usernameLocalStorage || '');
 	const submitEnabled = username && currentRating && (currentRating !== '?');
+	const [saveButtonValue, setSaveButtonValue] = useState('Save');
 
 	const saveRating = async (event) => {
 		event.preventDefault();
+		setSaveButtonValue('.');
 		try {
 			if (username !== usernameLocalStorage) {
 				localStorage.setItem('bookbros_user_name', username);
 			}
 			const result = await saveRatingAsync(bookId, username, currentRating, clubId);
+			setSaveButtonValue('..');
 			if (result === true) {
 				const averageRating = await getAverageRating(bookId, clubId);
-				console.log('averageRating:', averageRating);
-
+				setSaveButtonValue('...');
 				const ratingResult = await setAverageRating(book, averageRating);
+				setSaveButtonValue('Saved');
 				setRatingFormOpen(false);
+				setUpdateRatings(true);
+				setTimeout(() => {
+					setSaveButtonValue('Save');
+				}, 1000);
 				return ratingResult;
 			} else {
-				// setBookSaveResult(false);
 				console.log("error saving book");
 				return false;
 			}
@@ -76,8 +82,8 @@ const RatingForm = ({ book, bookId, clubId, objectId, title, open, setRatingForm
 			/>
 			<input 
 				type="submit" 
-				value="Save" 
-				disabled={!submitEnabled} 
+				value={saveButtonValue}
+				disabled={!submitEnabled}
 			/>
 		</form>
 	)
