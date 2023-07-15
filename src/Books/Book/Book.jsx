@@ -3,16 +3,28 @@ import '../Books.scss';
 import RatingForm from '../RatingForm/RatingForm';
 import { useState } from 'react';
 import { getRatingsForBook } from '../hooks';
+import { getAverageRating, setAverageRating } from '../RatingForm/hooks';
 
-const Book = ({ book, clubId }) => {
+const Book = ({ book, ratings, clubId }) => {
 	const objectId = book.id;
 	const bookId = book.get('book_id');
 	const user = book.get('user');
 	const author = book.get('author');
 	const title = book.get('title');
 	const averageRating = book.get('average_rating');
+	const [updateRatings, setUpdateRatings] = useState(false);
 
-	const [bookRatings, setBookRatings] = useState([]);
+	const getBookRatings = () => {
+		const ratingList = [];
+		ratings.forEach(r => {
+			if (r.book_id === book.get('book_id')) {
+				ratingList.push(r);
+			}
+		})
+		return ratingList;
+	}
+
+	const [bookRatings, setBookRatings] = useState(getBookRatings());
 	const [ratingFormOpen, setRatingFormOpen] = useState(false);
 
 	useEffect(() => {
@@ -20,13 +32,30 @@ const Book = ({ book, clubId }) => {
 			try {
 				const ratingsResult = await getRatingsForBook(bookId, clubId);
 				setBookRatings(ratingsResult);
-			} catch (error) {
-				console.log('error:', error);
-				// setError(error)
+				console.log('ratingsResult:', ratingsResult);
+			} catch (err) {
+				console.log('error getting ratings:', err);
 			}
 		};
-		getRatings();
-	}, [bookId, clubId]);
+		if (updateRatings) {
+			getRatings();
+			setUpdateRatings(false);
+		}
+	}, [updateRatings, bookId, clubId]);
+
+	useEffect(() => {
+		async function updateAverageRating() {
+			try {
+				const newAverageRating = await getAverageRating(bookId, clubId);
+				setAverageRating(book, newAverageRating);
+			} catch (err) {
+				console.log('error getting average rating:', err);
+			}
+		};
+		if (!averageRating) {
+			updateAverageRating();
+		}
+	}, [averageRating, book, bookId, clubId]);
 
 	return (
 		<section>
@@ -67,6 +96,7 @@ const Book = ({ book, clubId }) => {
 							title={title}
 							open={ratingFormOpen}
 							setRatingFormOpen={setRatingFormOpen}
+							setUpdateRatings={setUpdateRatings}
 						/>
 					</div>
 				</figcaption>
@@ -79,32 +109,35 @@ const Book = ({ book, clubId }) => {
 					</li>
 					{ author && (
 						<li className='book-author-wrapper'>
-							<span className="by">by</span>
+							<span className="by">by </span>
 							<span className="book-author">{author}</span>
 						</li>
 					)}
 				</ul>
 				<ul className="ratings">
-					{ bookRatings.length === 0 && (
+					{ bookRatings?.length === 0 && (
 						<li><em>No ratings yet</em></li>
 					)}
-					{ bookRatings?.map(rating => (
-						<li className="rating">
-							<p className="name opaque-background">{rating.get('name')}</p>:
-							<span className={`rating-number rating-${Math.floor(rating.get('rating'))}`}>
-								{rating.get('rating')}
+					{ bookRatings?.map((rating, i) => (
+						<li 
+							key={i}
+							className="rating"
+						>
+							<p className="name opaque-background">{ rating.name }</p>:
+							<span className={`rating-number rating-${Math.floor(rating.rating)}`}>
+								{ rating.rating }
 							</span>
-							{ rating.get('notes') && (
+							{ rating.notes && (
 								<>
 									&nbsp;📖
 									<span className="rating-notes">
-										{ rating.get('notes') }
+										{ rating.notes }
 									</span>
 								</>
 							)}
 						</li>
 					))}
-					{ bookRatings.length > 0 && (
+					{ bookRatings?.length > 0 && (
 						<li className="average-rating">
 							<div className="average-rating-text">Average rating:</div>
 							<p className={`rating-number average-rating-number rating-${Math.floor(averageRating)}`}>

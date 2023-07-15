@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.scss';
 
 import Navbar from '../Navbar/Navbar';
 import Books from '../Books/Books';
 import BookSearch from '../BookSearch/BookSearch';
 import { useSearchParams } from "react-router-dom";
+import { getBooks, getRatings } from '../Books/hooks';
 
 const Home = () => {
 	const brandDefault = localStorage.getItem('Book Bros Brand') || 'Book Bros';
 	const [brand, setBrand] = useState(brandDefault);
+	const [books, setBooks] = useState([]);
+	const [ratings, setRatings] = useState([]);
+	const [error, setError] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
 
 	const [searchParams, setSearchParams] = useSearchParams();
 	const bookSearch = searchParams.get('book_search');
@@ -18,12 +23,30 @@ const Home = () => {
 
 	const [currentTab, setCurrentTab] = useState(bookSearch ? 'Add a book' : 'Home'); 
 
-	if (!clubId && clubIdParam) {
+	if (clubIdParam) {
 		setClubId(clubIdParam);
 		localStorage.setItem("bookbros_club_id", clubId);
 		// remove the club_id param but keep it in local storage
 		window.history.replaceState(null, '', window.location.pathname);
 	}
+
+	useEffect(() => {
+		async function fetchBooks() {
+			try {
+				const booksResult = await getBooks(clubId);
+				setBooks(booksResult);
+				const ratingsResult = await getRatings(clubId);
+				setRatings(ratingsResult);
+			} catch (error) {
+				setError(error)
+			} finally {
+				setIsLoading(false);
+			}
+		};
+		if (!books.length) {
+			fetchBooks()
+		}
+	}, [clubId, books.length]);
 
 	return (
 		<main>
@@ -34,17 +57,27 @@ const Home = () => {
 				setCurrentTab={setCurrentTab}
 			/>
 			{currentTab === 'Home' && (
-				<Books 
-					brand={brand}
-					clubId={clubId}
-				/>
+				<>
+					{!error && !isLoading && (
+						<Books 
+							brand={brand}
+							books={books}
+							ratings={ratings}
+							clubId={clubId}
+						/>
+					)}
+				</>
 			)}
 			{currentTab === 'Add a book' && (
-				<BookSearch 
-					searchParams={searchParams}
-					setSearchParams={setSearchParams}
-					setCurrentTab={setCurrentTab}
-				/>
+				<>
+					{!error && !isLoading && (
+						<BookSearch 
+							searchParams={searchParams}
+							setSearchParams={setSearchParams}
+							setCurrentTab={setCurrentTab}
+						/>
+					)}
+				</>
 			)}
 		</main>
 	);
