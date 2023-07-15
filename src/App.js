@@ -4,7 +4,6 @@ import Home from './Home/Home';
 import { Routes, Route } from "react-router-dom";
 
 import { initializeParse } from '@parse/react';
-import BookSearch from './BookSearch/BookSearch';
 
 initializeParse(
   'https://bookbros.b4a.io/',
