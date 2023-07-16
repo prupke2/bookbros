@@ -198,11 +198,6 @@ body::-webkit-scrollbar-thumb {
   outline: 1px solid slategrey;
 }
 
-// Place all the styles related to the Posts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-
 #logo {
 	position: fixed;
 	z-index: -1;
@@ -237,8 +232,9 @@ body::-webkit-scrollbar-thumb {
 	transition: opacity 1s ease, z-index 2s ease;
 	transition-delay: 3s;
 	-webkit-animation-name: moveMessage;
-    -webkit-animation-duration: 3s; 
-    animation-name: moveMessage;
+	-webkit-animation-duration: 3s; 
+	animation-duration: 3s;
+	animation-name: moveMessage;
 }
 
 @keyframes moveMessage {
@@ -767,10 +763,6 @@ figcaption:hover div.rating-title {
 
 .rating {
 	position: relative;
-}
-
-.rating-notes:hover {
-	cursor: help;
 }
 
 .rating:hover .rating-notes {

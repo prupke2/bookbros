@@ -1,5 +1,5 @@
 import Parse from 'parse';
-import { calculateAverageRating } from './utils';
+import { calculateAverageRating } from '../../utils';
 
 export const getAverageRating = async (bookId, clubId) => {
 	const ratingQuery = new Parse.Query('Ratings').contains('book_id', bookId).contains('club', clubId);

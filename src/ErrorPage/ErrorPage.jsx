@@ -6,6 +6,7 @@ export default function ErrorPage() {
   console.error(error);
 
   const serverErrorMessage = "Sorry, an unexpected server error has occurred.";
+  const genericErrorMessage = "Sorry, an unexpected error has occurred.";
 
   const statusCodeToMessageMap = {
     400: 'Hmm... the server did not like your request.',
@@ -14,13 +15,14 @@ export default function ErrorPage() {
     500: serverErrorMessage,
     501: serverErrorMessage,
     502: serverErrorMessage,
+    503: serverErrorMessage,
     504: serverErrorMessage,
   }
 
   return (
     <div id="error-page">
       <h1>Oops!</h1>
-      <p>{statusCodeToMessageMap[error.status]}</p>
+      <p>{statusCodeToMessageMap[error.status] || genericErrorMessage}</p>
       <p>
         Status code: <b>{error.status} </b>
         <i>{error.statusText || error.message}</i>
