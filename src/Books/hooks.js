@@ -53,6 +53,7 @@ const parseRatings = ratings => {
 			ratingData.book_id = rating.get("book_id");
 			ratingData.rating = rating.get("rating");
 			ratingData.name = rating.get("name");
+			ratingData.notes = rating.get("notes");
 			bookRatings.push(ratingData);
 			ratingData = {}
 		});
@@ -65,11 +66,16 @@ const parseRatings = ratings => {
 const paginateParseObject = async (query) => {
 	let count = 0;
 	const results = await query.find();
+	if (results?.length === 0) {
+		return [];
+	} 
 	let objectArray = [...results];
+	let newResults;
+
 	while (objectArray.length % 100 === 0) {
 		count += 100;
 		query.skip(count);
-		const newResults = await query.find();
+		newResults = await query.find();
 		objectArray = [...objectArray, ...newResults];
 	}
 	return objectArray;
@@ -81,23 +87,20 @@ export const getBooks = async (clubId) => {
 	return results;
 };
 
+export const getBook = async (objectId) => {
+  const query = new Parse.Query('Books').equalTo('objectId', objectId);
+	const result = await query.find();
+	return result;
+};
+
 export const getRatings = async (clubId) => {
 	const query = new Parse.Query('Ratings').equalTo('club', `${clubId}`).descending('rating');
 	const ratings = await paginateParseObject(query);
-	return parseRatings(ratings)
+	return parseRatings(ratings);
 };
 
 export const getRatingsForBook = async (bookId, clubId) => {
 	const query = new Parse.Query('Ratings').equalTo('club', `${clubId}`).equalTo('book_id', bookId).descending('rating');
 	const ratings = await paginateParseObject(query);
-	return parseRatings(ratings)
-	// const results = await query.find();
-	// const bookRatings = parseRatings(results);
-	// return bookRatings;
-};
-
-export const getBook = async (objectId) => {
-  const query = new Parse.Query('Books').equalTo('objectId', objectId);
-	const result = await query.find();
-	return result;
+	return parseRatings(ratings);
 };

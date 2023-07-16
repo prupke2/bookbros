@@ -6,6 +6,7 @@ const RatingForm = ({ book, bookId, clubId, objectId, title, open, setRatingForm
 	const [currentRating, setCurrentRating] = useState('?');
 	let usernameLocalStorage = localStorage.getItem("bookbros_user_name");
 	const [username, setUsername] = useState(usernameLocalStorage || '');
+	const [notes, setNotes] = useState(null);
 	const submitEnabled = username && currentRating && (currentRating !== '?');
 	const [saveButtonValue, setSaveButtonValue] = useState('Save');
 
@@ -16,7 +17,7 @@ const RatingForm = ({ book, bookId, clubId, objectId, title, open, setRatingForm
 			if (username !== usernameLocalStorage) {
 				localStorage.setItem('bookbros_user_name', username);
 			}
-			const result = await saveRatingAsync(bookId, username, currentRating, clubId);
+			const result = await saveRatingAsync(bookId, username, currentRating, notes, clubId);
 			setSaveButtonValue('..');
 			if (result === true) {
 				const averageRating = await getAverageRating(bookId, clubId);
@@ -79,6 +80,7 @@ const RatingForm = ({ book, bookId, clubId, objectId, title, open, setRatingForm
 				maxLength={400} 
 				resize="vertical"
 				height="80px"
+				onInput={(e) => setNotes(e.target.value)}
 			/>
 			<input 
 				type="submit" 

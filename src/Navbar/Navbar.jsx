@@ -2,7 +2,7 @@ import React from 'react';
 import './Navbar.scss';
 import NavTab from './NavTab/NavTab';
 
-const Navbar = ({ brand, setBrand, currentTab, setCurrentTab }) => {
+const Navbar = ({ brand, setBrand, currentTab, setTab }) => {
 
 	const switchBrand = () => {
 		if (brand === 'Book Bros') {
@@ -36,12 +36,12 @@ const Navbar = ({ brand, setBrand, currentTab, setCurrentTab }) => {
 						<NavTab
 							name="Home"
 							currentTab={currentTab}
-							setCurrentTab={setCurrentTab}
+							setTab={setTab}
 						/>
 						<NavTab
 							name="Add a book"
 							currentTab={currentTab}
-							setCurrentTab={setCurrentTab}
+							setTab={setTab}
 						/>
 					</ul>
 					<span id="hamburger-menu">≡</span>

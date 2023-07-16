@@ -1,7 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import BookModal from '../../Modal/BookModal';
 
-const BookResult = ({result, setCurrentTab }) => {
+const BookResult = ({ result, setTab, setRefreshBooks }) => {
 	const bookId = result.id;
 	const bookCoverLink = `https://books.google.com/books/content/images/frontcover/${bookId}`;
 	const data = result?.volumeInfo;
@@ -10,11 +10,13 @@ const BookResult = ({result, setCurrentTab }) => {
 	const [bookSaveResult, setBookSaveResult] = useState(null);
 
 	useEffect(() => {
+
 		if (bookSaveResult) {
-			setCurrentTab("Home");
-			window.history.replaceState(null, '', window.location.pathname);
+			setRefreshBooks(true);
+			setTab("Home");
+			// window.history.replaceState(null, '', window.location.pathname);
 		}
-	}, [bookSaveResult, setCurrentTab]);
+	}, [bookSaveResult, setRefreshBooks, setTab]);
 
 	return (
 		<li>

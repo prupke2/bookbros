@@ -754,8 +754,11 @@ figcaption:hover div.rating-title {
 	display: none;
 	font-style: italic;
 	position: absolute;
-	background: rgba(107, 209, 251, 0.94);
+	background: rgb(235, 242, 245);
+	border: 1px solid black;
+	border-radius: 4px;
 	margin-top: 40px;
+	margin-left: 30px;
 	width: 25vw;
 	padding: 5px;
 	left: 100px;
@@ -764,6 +767,10 @@ figcaption:hover div.rating-title {
 
 .rating {
 	position: relative;
+}
+
+.rating-notes:hover {
+	cursor: help;
 }
 
 .rating:hover .rating-notes {

@@ -1,56 +1,79 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './BookSearch.scss';
 import { fetchGoogleBooks } from './hooks';
 import BookResult from './BookResult/BookResult';
 import Loading from '../Loading/Loading';
 
-const BookSearch = ({ searchParams, setSearchParams, setCurrentTab }) => {
-	const bookSearch = searchParams.get('book_search');
+const BookSearch = ({ setTab, setRefreshBooks }) => {
+	const [bookSearch, setBookSearch] = useState(null);
 	const [bookResults, setBookResults] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
+	const [lastBookSearch, setLastBookSearch] = useState(null);
 
-	const noResults = bookSearch !== null && bookResults?.length === 0 && !isLoading;
+	const noResults = lastBookSearch !== null && bookResults?.length === 0 && !isLoading;
+	const showResults = bookSearch !== null && bookResults && !isLoading;
 
-	useEffect(() => {
-		if (bookSearch) {
-			setIsLoading(true);
-			fetchGoogleBooks(bookSearch, setBookResults, setIsLoading);
+	const searchBooks = async (event) => {
+		event.preventDefault();
+		setLastBookSearch(bookSearch);
+		setIsLoading(true);
+		try {
+			fetchGoogleBooks(bookSearch, setBookResults);
+		} catch (err) {
+			console.log('Error fetching books:', err);
+		} finally {
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 700);
 		}
-	}, [bookSearch]);	
+	}
+
+	const handleSearchInput = (search) => {
+		setBookSearch(search);
+	}
 
 	return (
 		<div>
-			{ !bookSearch &&
+			{ lastBookSearch === null &&
 				<>
 					<h2>Add a book</h2>
 					<p className="tinted-background">Search by title, author, or both.</p>
 				</>	
 			}
 			
-			<form id="book_search_form" onSubmit={(e) => setSearchParams(e.target.value)}>
-				<input type="text" id="book_search" name="book_search" required />
+			<form id="book_search_form" onSubmit={(event) => searchBooks(event)}>
+				<input 
+					type="text" 
+					id="book_search" 
+					name="book_search" 
+					onInput={(event) => handleSearchInput(event.target.value) }
+					required 
+				/>
 				<input className="rounded-link solid-link" type="submit" value="Search books" />
 			</form>
 
 			{ isLoading && <Loading /> }
 
-			{ noResults && !isLoading && (
+			{ noResults && (
 				<p>
-					No results found for {bookSearch}
+					No results found for {lastBookSearch}
 				</p>
 			)}
 
-			{ (bookSearch && bookResults && !isLoading) && (
+			{ showResults && (
 				<>
-					<p className="tinted-background">
-						Showing results for "{bookSearch}". Now select a book for your club!
-					</p>
+					{ lastBookSearch &&
+						<p className="tinted-background">
+							Showing results for "{lastBookSearch}". Now select a book for your club!
+						</p>
+					}
 					<ul id="book-search-results">
 						{bookResults.map(book => (
 							<BookResult
 								key={book.id}
 								result={book}
-								setCurrentTab={setCurrentTab}
+								setTab={setTab}
+								setRefreshBooks={setRefreshBooks}
 							/>
 						)
 						)}

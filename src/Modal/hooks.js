@@ -2,7 +2,7 @@ import Parse from 'parse';
 
 export const saveBookAsync = async (bookId, user, title, author, createdAt) => {
 	const newBook = new Parse.Object('Books');
-	const club = localStorage.getItem("bookbros_club_id") || null;
+	const club = localStorage.getItem("bookbros_club_id") || 'test';
 
 	newBook.set('book_id', bookId);
 	newBook.set('user', user);
@@ -12,9 +12,7 @@ export const saveBookAsync = async (bookId, user, title, author, createdAt) => {
 	newBook.set('created_at', createdAt);
 	newBook.set('updated_at', createdAt);
 	try {
-		const result = await newBook.save();
-		// Access the Parse Object attributes using the .GET method
-		console.log('ParseObject created', result);
+		await newBook.save();
 		return true;
 	} catch (error) {
 		console.error('Error while creating ParseObject: ', error);
