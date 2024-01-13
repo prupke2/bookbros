@@ -56,6 +56,7 @@ const RatingForm = ({ book, bookId, clubId, objectId, title, open, setRatingForm
 			<input 
 				type="text" 
 				defaultValue={username}
+				placeholder="Name"
 				maxLength={24} 
 				required
 				onInput={(e) => setUsername(e.target.value)}

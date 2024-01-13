@@ -425,17 +425,17 @@ ul {
 	margin-bottom: 30px;
 }
 
-.book-cover {
-	height: auto;
-	margin: 50px 50px;
-	padding: 0;
-	display: inline-flex;
-}
+// .book-cover {
+// 	height: auto;
+// 	margin: 50px 50px;
+// 	padding: 0;
+// 	display: inline-flex;
+// }
 
-.book-cover img {
-	width: 30vw;
-	height: auto;
-}
+// .book-cover img {
+// 	width: 30vw;
+// 	height: auto;
+// }
 
 .book-cover-button {
 	border: none;
@@ -491,14 +491,14 @@ figure {
 	}
 }
 
-figcaption {
-	position: absolute;
-	height: 100%;
-	margin: 0 auto;
-	padding: 0;
-	width: 100%;
-	text-align: center;
-}
+// figcaption {
+// 	position: absolute;
+// 	height: 100%;
+// 	margin: 0 auto;
+// 	padding: 0;
+// 	width: 100%;
+// 	text-align: center;
+// }
 
 .margin-top-40 {
 	position: relative;
@@ -948,3 +948,10 @@ form {
 // // 	}
 // // }
 
+@media screen and (max-width: 800px) {
+	#logo {
+		width: calc(100vw - 150px);
+		height: auto;
+		right: 90px;
+	}
+}
