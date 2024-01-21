@@ -43,6 +43,11 @@ const Navbar = ({ brand, setBrand, currentTab, setTab }) => {
 							currentTab={currentTab}
 							setTab={setTab}
 						/>
+						<NavTab
+							name="Club"
+							currentTab={currentTab}
+							setTab={setTab}
+						/>
 					</ul>
 					<span id="hamburger-menu">≡</span>
 				</li>
