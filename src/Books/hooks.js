@@ -1,4 +1,5 @@
 import Parse from 'parse';
+import { transformBookFetchResults } from './utils';
 
 /* Parse tl;dr:
 
@@ -45,7 +46,7 @@ Sample results:
 	]
 */
 
-const parseRatings = ratings => {
+export const parseRatings = ratings => {
 	let bookRatings = [];
 	let ratingData = {};
 	try {
@@ -63,7 +64,7 @@ const parseRatings = ratings => {
 	return bookRatings;
 }
 
-const paginateParseObject = async (query) => {
+export const paginateParseObject = async (query) => {
 	let count = 0;
 	const results = await query.find();
 	if (results?.length === 0) {
@@ -81,21 +82,40 @@ const paginateParseObject = async (query) => {
 	return objectArray;
 }
 
-export const getBooks = async (clubId) => {
+export const getBooks = async (clubId, forceRefresh=false) => {
+	const booksInLocalStorage = JSON.parse(localStorage.getItem('books')) || null;
+	const booksUpdated = localStorage.getItem('booksUpdated') || null;
+	const tenMinutesAgo = Date.now() - 600000;
+	// only refresh books if they are not in local storage or if they are older than 10 minutes
+	if (booksInLocalStorage && (!forceRefresh || (booksUpdated && booksUpdated > tenMinutesAgo)) ) {
+		return booksInLocalStorage;
+	}
 	const query = new Parse.Query('Books').equalTo('club', `${clubId}`).descending('created_at');
 	const results = await paginateParseObject(query);
-	return results;
+	const books = await transformBookFetchResults(results);
+	localStorage.setItem('books', JSON.stringify(books));
+	localStorage.setItem('booksUpdated', Date.now());
+	return books;
 };
 
 export const getBook = async (objectId) => {
   const query = new Parse.Query('Books').equalTo('objectId', objectId);
-	const result = await query.find();
-	return result;
+	const ratings = await query.find();
+	return ratings;
 };
 
-export const getRatings = async (clubId) => {
+export const getRatings = async (clubId, forceRefresh=false) => {
+	const ratingsInLocalStorage = JSON.parse(localStorage.getItem('ratings')) || null;
+	const ratingsUpdated = localStorage.getItem('ratingsUpdated') || null;
+	const tenMinutesAgo = Date.now() - 600000;
+	// only refresh books if they are not in local storage or if they are older than 10 minutes
+	if (ratingsInLocalStorage && (!forceRefresh || (ratingsUpdated && ratingsUpdated > tenMinutesAgo)) ) {
+		return ratingsInLocalStorage;
+	}
 	const query = new Parse.Query('Ratings').equalTo('club', `${clubId}`).descending('rating');
 	const ratings = await paginateParseObject(query);
+	localStorage.setItem('ratings', JSON.stringify(ratings));
+	localStorage.setItem('ratingsUpdated', Date.now());
 	return parseRatings(ratings);
 };
 
