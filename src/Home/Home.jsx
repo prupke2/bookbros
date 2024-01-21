@@ -6,6 +6,7 @@ import Books from '../Books/Books';
 import BookSearch from '../BookSearch/BookSearch';
 import { getBooks, getRatings } from '../Books/hooks';
 import Loading from '../Loading/Loading';
+import Club from '../Club/Club';
 
 const Home = () => {
 	const brandDefault = localStorage.getItem('Book Bros Brand') || 'Book Bros';
@@ -21,12 +22,13 @@ const Home = () => {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	const clubIdParam = urlParams.get('club_id');
-	const [clubId, setClubId] = useState(clubIdParam || localStorage.getItem("bookbros_club_id") || null);
+	const [clubId, setClubId] = useState(clubIdParam || localStorage.getItem("bookbros_club_id") || "test");
 
 	const currentTabLocalStorage = localStorage.getItem("bookbros_current_tab");
 	const [currentTab, setCurrentTab] = useState(currentTabLocalStorage || 'Home'); 
 	const setTab = (tab) => {
 		setCurrentTab(tab);
+		window.scrollTo(0, 0);
 		localStorage.setItem("bookbros_current_tab", tab);
 	}
 
@@ -85,6 +87,16 @@ const Home = () => {
 						<BookSearch 
 							setTab={setTab}
 							setRefreshBooks={setRefreshBooks}
+						/>
+					)}
+				</>
+			)}
+			{currentTab === 'Club' && (
+				<>
+					{!error && !isLoading && (
+						<Club
+							clubId={clubId}
+							books={books}
 						/>
 					)}
 				</>
