@@ -3,9 +3,9 @@ import { getRatingsForBook } from '../hooks';
 import { getAverageRating, setAverageRating } from '../RatingForm/hooks';
 import './Ratings.scss';
 
-const Ratings = ({ book, bookId, clubId, averageRating, getBookRatings, updateRatings, setUpdateRatings }) => {
+const Ratings = ({ book, bookId, clubId, averageRating, ratings, updateRatings, setUpdateRatings }) => {
 
-	const [bookRatings, setBookRatings] = useState(getBookRatings());
+	const [bookRatings, setBookRatings] = useState(ratings);
 
 	useEffect(() => {
 		async function getRatings() {
@@ -26,7 +26,7 @@ const Ratings = ({ book, bookId, clubId, averageRating, getBookRatings, updateRa
 		async function updateAverageRating() {
 			try {
 				const newAverageRating = await getAverageRating(bookId, clubId);
-				setAverageRating(book, newAverageRating);
+				setAverageRating(book?.parseBook, newAverageRating);
 			} catch (err) {
 				console.log('error getting average rating:', err);
 			}
