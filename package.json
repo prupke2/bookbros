@@ -6,6 +6,7 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
+    "@nivo/scatterplot": "^0.84.0",
     "@parse/react": "0.0.1-alpha.18",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

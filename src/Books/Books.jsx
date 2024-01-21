@@ -42,7 +42,7 @@ const Books = ({ brand, books, ratings, clubId }) => {
 									)}
 									<Book
 										book={book}
-										ratings={ratings}
+										ratings={ratings.filter(r => r.book_id === book.bookId)}
 										clubId={clubId}
 									/>
 									{ (index === 0 && books.length > 1) &&

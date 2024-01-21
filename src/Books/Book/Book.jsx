@@ -5,26 +5,9 @@ import { useState } from 'react';
 import Ratings from '../Ratings/Ratings';
 
 const Book = ({ book, ratings, clubId }) => {
-	const objectId = book.id;
-	const bookId = book.get('book_id');
-	const user = book.get('user');
-	const author = book.get('author');
-	const title = book.get('title');
-
-	const averageRating = book.get('average_rating');
+	const { objectId, bookId, user, author, title, averageRating } = book;
 	const [updateRatings, setUpdateRatings] = useState(false);
-
 	const [ratingFormOpen, setRatingFormOpen] = useState(false);
-
-	const getBookRatings = () => {
-		const ratingList = [];
-		ratings.forEach(r => {
-			if (r.book_id === book.get('book_id')) {
-				ratingList.push(r);
-			}
-		})
-		return ratingList;
-	}
 
 	return (
 		<section>
@@ -89,7 +72,7 @@ const Book = ({ book, ratings, clubId }) => {
 					bookId={bookId}
 					clubId={clubId}
 					averageRating={averageRating}
-					getBookRatings={getBookRatings}
+					ratings={ratings}
 					updateRatings={updateRatings}
 					setUpdateRatings={setUpdateRatings}
 				/>
