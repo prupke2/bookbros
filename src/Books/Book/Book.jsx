@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../Books.scss';
 import RatingForm from '../RatingForm/RatingForm';
 import { useState } from 'react';
@@ -10,6 +10,10 @@ const Book = ({ book, ratings, clubId }) => {
 	const [ratingFormOpen, setRatingFormOpen] = useState(false);
 	const [bookRatings, setBookRatings] = useState(ratings);
 	const [averageRatingState, setAverageRatingState] = useState(averageRating);
+
+	useEffect(() => {
+		setBookRatings(ratings);
+	}, [setBookRatings, ratings]);
 
 	return (
 		<section>
