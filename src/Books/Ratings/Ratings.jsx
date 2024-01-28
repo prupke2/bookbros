@@ -31,39 +31,40 @@ const Ratings = ({
 	}, [updateRatings, setBookRatings, setAverageRatingState, bookId, clubId]);
 
 	return (
-		<ul className="ratings">
-		{ bookRatings?.length === 0 && (
-			<li><em>No ratings yet</em></li>
-		)}
-		{ bookRatings?.map((rating, i) => (
-			<li 
-				key={i}
-				className="rating"
-			>
-				<p className="name opaque-background">{ rating.name }</p>:
-				<span className={`rating-number rating-${Math.floor(rating.rating)}`}>
-					{ rating.rating }
-				</span>
-				{ rating.notes && (
-					<>
-						&nbsp;💬
-						<span className="rating-notes">
-							{ rating.notes }
-						</span>
-					</>
+		<>
+			<ul className="ratings ">
+				{ bookRatings?.length === 0 && (
+					<li><em>No ratings yet</em></li>
 				)}
-			</li>
-		))}
-		{ bookRatings?.length > 0 && (
-			<li className="average-rating">
-				<div className="average-rating-text">Average rating:</div>
-				<p className={`rating-number average-rating-number rating-${Math.floor(averageRatingState)}`}>
-						{averageRatingState?.toFixed(2)}
-				</p>
-			</li>
-		)}
-
-	</ul>
+				{ bookRatings?.map((rating, i) => (
+					<li 
+						key={i}
+						className="rating"
+					>
+						<span className="name opaque-background">{ rating.name }</span>:
+						<span className={`rating-number rating-${Math.floor(rating.rating)}`}>
+							{ rating.rating }
+						</span>
+						{ rating.notes && (
+							<>
+								&nbsp;💬
+								<span className="rating-notes">
+									{ rating.notes }
+								</span>
+							</>
+						)}
+					</li>
+				))}
+			</ul>
+			{ bookRatings?.length > 0 && (
+				<div className="average-rating">
+					<div className="average-rating-text">Average rating:</div>
+					<p className={`rating-number average-rating-number rating-${Math.floor(averageRatingState)}`}>
+							{averageRatingState?.toFixed(2)}
+					</p>
+				</div>
+			)}
+		</>
 	)
 }
 
