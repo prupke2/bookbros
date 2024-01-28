@@ -18,7 +18,7 @@ const Club = () => {
 			{ books.length && (
 				<Fragment>
 					<ScatterplotChart data={transformedData} />
-					<List data={userAverageRatings} />
+					<List data={userAverageRatings} title="Highest Average Rating" />
 				</Fragment>
 			)}
 		</div>
