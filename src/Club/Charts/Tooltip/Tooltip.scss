@@ -1,7 +1,9 @@
-.tooltip-background {
+.tooltip-wrapper {
+	background: var(--gradient-light);
+	max-width: 250px;
 	padding: 5px;
 	border-radius: 4px;
-	background: var(--gradient-light);
+	padding: 5px;
 	font-size: 0.8rem;
 }
 

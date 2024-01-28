@@ -1,0 +1,36 @@
+#scatterplot-chart-wrapper {
+	margin: 80px 30px;
+	max-width: 1800px;
+	min-width: 1000px;
+	height: 600px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background: var(--gradient-light);
+	color: black;
+	border-radius: 8px;
+}
+
+ul.list-wrapper {
+	list-style: none;
+	display: table;
+	margin: 10px 0;
+}
+
+li.list-item-wrapper {
+	display: table-row;
+	height: 30px;
+	padding: 5px;
+	text-align: right;
+	span {
+		display: table-cell;
+		padding: 5px;
+	}
+}
+
+.list-spacer {
+	display: table-cell;
+	height: 20px;
+}
