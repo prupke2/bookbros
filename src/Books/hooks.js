@@ -82,14 +82,14 @@ export const paginateParseObject = async (query) => {
 	return objectArray;
 }
 
-export const getBooks = async (clubId, forceRefresh=false) => {
-	const booksInLocalStorage = JSON.parse(localStorage.getItem('books')) || null;
-	const booksUpdated = localStorage.getItem('booksUpdated') || null;
-	const tenMinutesAgo = Date.now() - 600000;
-	// only refresh books if they are not in local storage or if they are older than 10 minutes
-	if (booksInLocalStorage && (!forceRefresh || (booksUpdated && booksUpdated > tenMinutesAgo)) ) {
-		return booksInLocalStorage;
-	}
+export const getBooks = async (clubId) => {
+	// const booksInLocalStorage = JSON.parse(localStorage.getItem('books')) || null;
+	// const booksUpdated = localStorage.getItem('booksUpdated') || null;
+	// const tenMinutesAgo = Date.now() - 600000;
+	// // only refresh books if they are not in local storage or if they are older than 10 minutes
+	// if (booksInLocalStorage && (!forceRefresh || (booksUpdated && booksUpdated > tenMinutesAgo)) ) {
+	// 	return booksInLocalStorage;
+	// }
 	const query = new Parse.Query('Books').equalTo('club', `${clubId}`).descending('created_at');
 	const results = await paginateParseObject(query);
 	const books = await transformBookFetchResults(results);
@@ -104,14 +104,7 @@ export const getBook = async (objectId) => {
 	return ratings;
 };
 
-export const getRatings = async (clubId, forceRefresh=false) => {
-	const ratingsInLocalStorage = JSON.parse(localStorage.getItem('ratings')) || null;
-	const ratingsUpdated = localStorage.getItem('ratingsUpdated') || null;
-	const tenMinutesAgo = Date.now() - 600000;
-	// only refresh books if they are not in local storage or if they are older than 10 minutes
-	if (ratingsInLocalStorage && (!forceRefresh || (ratingsUpdated && ratingsUpdated > tenMinutesAgo)) ) {
-		return ratingsInLocalStorage;
-	}
+export const getRatings = async (clubId) => {
 	const query = new Parse.Query('Ratings').equalTo('club', `${clubId}`).descending('rating');
 	const ratings = await paginateParseObject(query);
 	localStorage.setItem('ratings', JSON.stringify(ratings));
