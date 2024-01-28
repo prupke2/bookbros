@@ -11,18 +11,18 @@ import Club from '../Club/Club';
 const Home = () => {
 	const brandDefault = localStorage.getItem('Book Bros Brand') || 'Book Bros';
 	const [brand, setBrand] = useState(brandDefault);
-	const [books, setBooks] = useState(null);
-	const [ratings, setRatings] = useState([]);
+	const [books, setBooks] = useState(JSON.parse(localStorage.getItem('books')) || []);
+	const [ratings, setRatings] = useState(JSON.parse(localStorage.getItem('ratings')) || []);
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 
 	const [updateClub, setUpdateClub] = useState(true);
-	const [refreshBooks, setRefreshBooks] = useState(false);
+	const [refreshBooks, setRefreshBooks] = useState(true);
 
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	const clubIdParam = urlParams.get('club_id');
-	const [clubId, setClubId] = useState(clubIdParam || localStorage.getItem("bookbros_club_id") || "test");
+	const [clubId, setClubId] = useState(clubIdParam || localStorage.getItem("bookbros_club_id") || "U3L6s1AJDB");
 
 	const currentTabLocalStorage = localStorage.getItem("bookbros_current_tab");
 	const [currentTab, setCurrentTab] = useState(currentTabLocalStorage || 'Home'); 
@@ -30,7 +30,7 @@ const Home = () => {
 		setCurrentTab(tab);
 		window.scrollTo(0, 0);
 		localStorage.setItem("bookbros_current_tab", tab);
-	}
+	};
 
 	if (clubIdParam && updateClub) {
 		setClubId(clubIdParam);
@@ -38,6 +38,7 @@ const Home = () => {
 		// remove the club_id param but keep it in local storage
 		window.history.replaceState(null, '', window.location.pathname);
 		setUpdateClub(false);
+		setRefreshBooks(true);
 	}
 
 	useEffect(() => {
@@ -50,14 +51,13 @@ const Home = () => {
 			} catch (error) {
 				console.log('error:', error);
 				setError(error);
-			} finally {
-				setIsLoading(false);
 			}
 		};
-		if (refreshBooks || (!books && currentTab === 'Home')) {
-			setRefreshBooks(false);
+		if (refreshBooks && currentTab === 'Home') {
 			fetchBooks();
+			setRefreshBooks(false);
 		}
+		setIsLoading(false);
 	}, [clubIdParam, clubId, currentTab, books, refreshBooks]);
 
 	return (
@@ -68,19 +68,22 @@ const Home = () => {
 				currentTab={currentTab}
 				setTab={setTab}
 			/>
+			{ isLoading && <Loading /> }
+
 			{currentTab === 'Home' && (
 				<>
-					{ isLoading && <Loading /> }
 					{!error && !isLoading && (
 						<Books 
 							brand={brand}
 							books={books}
 							ratings={ratings}
 							clubId={clubId}
+							setRefreshBooks={setRefreshBooks}
 						/>
 					)}
 				</>
 			)}
+
 			{currentTab === 'Add a book' && (
 				<>
 					{!error && !isLoading && (
@@ -91,13 +94,18 @@ const Home = () => {
 					)}
 				</>
 			)}
+
 			{currentTab === 'Club' && (
 				<>
 					{!error && !isLoading && (
 						<Club
-							clubId={clubId}
 							books={books}
 						/>
+					)}
+					{error && (
+						<div className="error">
+							{error}
+						</div>
 					)}
 				</>
 			)}

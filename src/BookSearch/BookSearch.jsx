@@ -36,8 +36,7 @@ const BookSearch = ({ setTab, setRefreshBooks }) => {
 		<div>
 			{ lastBookSearch === null &&
 				<>
-					<h2>Add a book</h2>
-					<p className="tinted-background">Search by title, author, or both.</p>
+					<p className="book-search-feedback">Search by title, author, or both.</p>
 				</>	
 			}
 			
@@ -63,7 +62,7 @@ const BookSearch = ({ setTab, setRefreshBooks }) => {
 			{ showResults && (
 				<>
 					{ lastBookSearch &&
-						<p className="tinted-background">
+						<p className="book-search-feedback">
 							Showing results for "{lastBookSearch}". Now select a book for your club!
 						</p>
 					}

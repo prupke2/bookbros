@@ -27,9 +27,8 @@ const BookModal = ({ modalOpen, setModalOpen, setBookSaveResult, bookId, data, b
 			} else {
 				setBookSaveResult(false);
 			}
-		} catch (error) {
-			console.log(error);
-
+		} catch (err) {
+			console.log(`Error saving book: ${err}`);
 		}
 	};
 		
