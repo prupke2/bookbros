@@ -1,40 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { getRatingsForBook } from '../hooks';
-import { getAverageRating, setAverageRating } from '../RatingForm/hooks';
 import './Ratings.scss';
 
-const Ratings = ({ book, bookId, clubId, averageRating, ratings, updateRatings, setUpdateRatings }) => {
-
-	const [bookRatings, setBookRatings] = useState(ratings);
+const Ratings = ({ 
+	bookId, 
+	clubId, 
+	averageRatingState, 
+	bookRatings, 
+	updateRatings,
+	setBookRatings,
+	setAverageRatingState,
+}) => {
 
 	useEffect(() => {
-		async function getRatings() {
+		async function refreshRatings() {
 			try {
 				const ratingsResult = await getRatingsForBook(bookId, clubId);
 				setBookRatings(ratingsResult);
+				const newAverageRating = ratingsResult.reduce((acc, rating) => {
+					return acc + rating.rating;
+				}, 0) / ratingsResult.length;
+				setAverageRatingState(newAverageRating);
 			} catch (err) {
 				console.log('error getting ratings:', err);
 			}
 		};
 		if (updateRatings) {
-			getRatings();
-			setUpdateRatings(false);
+			refreshRatings();
 		}
-	}, [updateRatings, setUpdateRatings, bookId, clubId]);
-
-	useEffect(() => {
-		async function updateAverageRating() {
-			try {
-				const newAverageRating = await getAverageRating(bookId, clubId);
-				setAverageRating(book?.parseBook, newAverageRating);
-			} catch (err) {
-				console.log('error getting average rating:', err);
-			}
-		};
-		if (averageRating === null) {
-			updateAverageRating();
-		}
-	}, [averageRating, book, bookId, clubId]);
+	}, [updateRatings, setBookRatings, setAverageRatingState, bookId, clubId]);
 
 	return (
 		<ul className="ratings">
@@ -63,32 +57,12 @@ const Ratings = ({ book, bookId, clubId, averageRating, ratings, updateRatings, 
 		{ bookRatings?.length > 0 && (
 			<li className="average-rating">
 				<div className="average-rating-text">Average rating:</div>
-				<p className={`rating-number average-rating-number rating-${Math.floor(averageRating)}`}>
-						{averageRating?.toFixed(2)}
+				<p className={`rating-number average-rating-number rating-${Math.floor(averageRatingState)}`}>
+						{averageRatingState?.toFixed(2)}
 				</p>
 			</li>
 		)}
 
-		{/* // <li>
-		// 	<div className="search-links book-search-links">
-		// 		<a className="rounded-link fixed-width-link" href="https://www.amazon.com/s?k=<%= book.title %>+<%= book.author %>
-		// 			&ref=as_li_tl?ie=UTF8&tag=bookbros03-20&camp=15121&creative=330641&linkCode=as2&creativeASIN=1405206276"
-		// 		target="_blank">
-		// 			<img className="icon" src="/assets/amazon_icon.png" alt=""> 
-		// 			<span className="text-after-icon">Amazon search</span>
-		// 		</a>
-		// 		<a className="rounded-link fixed-width-link" href="https://books.google.ca/books?id=<%= book.book %>"
-		// 		target="_blank">
-		// 			<img className="icon" src="/assets/google_icon.png" alt=""> 
-		// 			<span className="text-after-icon">Google search</span>
-		// 		</a>
-		// 		<a className="rounded-link fixed-width-link" href="https://www.torontopubliclibrary.ca/search.jsp?Ntt=<%= book.title %>+<%= book.author %>" target="_blank">
-		// 			<img className="icon library" src="/assets/library_icon.svg" alt=""> 
-		// 			<span className="text-after-icon">Library search</span>
-		// 		</a>
-		// 	</div>
-		// </li> */}
-		
 	</ul>
 	)
 }

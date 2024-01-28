@@ -5,9 +5,11 @@ import { useState } from 'react';
 import Ratings from '../Ratings/Ratings';
 
 const Book = ({ book, ratings, clubId }) => {
-	const { objectId, bookId, user, author, title, averageRating } = book;
+	const { bookId, user, author, title, averageRating } = book;
 	const [updateRatings, setUpdateRatings] = useState(false);
 	const [ratingFormOpen, setRatingFormOpen] = useState(false);
+	const [bookRatings, setBookRatings] = useState(ratings);
+	const [averageRatingState, setAverageRatingState] = useState(averageRating);
 
 	return (
 		<section>
@@ -44,11 +46,11 @@ const Book = ({ book, ratings, clubId }) => {
 							book={book}
 							bookId={bookId}
 							clubId={clubId}
-							objectId={objectId}
-							title={title}
 							open={ratingFormOpen}
 							setRatingFormOpen={setRatingFormOpen}
+							bookRatings={bookRatings}
 							setUpdateRatings={setUpdateRatings}
+							setAverageRatingState={setAverageRatingState}
 						/>
 					</div>
 				</figcaption>
@@ -68,13 +70,13 @@ const Book = ({ book, ratings, clubId }) => {
 				</ul>
 
 				<Ratings
-					book={book}
 					bookId={bookId}
 					clubId={clubId}
-					averageRating={averageRating}
-					ratings={ratings}
+					averageRatingState={averageRatingState}
+					bookRatings={bookRatings}
 					updateRatings={updateRatings}
-					setUpdateRatings={setUpdateRatings}
+					setBookRatings={setBookRatings}
+					setAverageRatingState={setAverageRatingState}
 				/>
 			</div>
 		</section>
