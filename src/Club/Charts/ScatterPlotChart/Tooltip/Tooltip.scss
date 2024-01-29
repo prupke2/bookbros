@@ -1,6 +1,7 @@
-.tooltip-wrapper {
+aside.tooltip-wrapper {
 	background: var(--gradient-light);
-	max-width: 250px;
+	max-width: 250px !important;
+	width: auto !important;
 	padding: 5px;
 	border-radius: 4px;
 	padding: 5px;
@@ -17,4 +18,12 @@
 
 .tooltip-name {
 	font-variant: italic;
+}
+
+.highest-rated {
+	background: var(--green);
+}
+
+.lowest-rated {
+	background: var(--red);
 }

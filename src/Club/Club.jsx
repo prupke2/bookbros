@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react';
-import { getUserAverageRatings, transformChartData } from './Charts/utils';
-import ScatterplotChart from './Charts/ScatterplotChart';
-import List from './Charts/List';
+import { getMeanBookAverageRating, getUserAverageRatings, transformChartData } from './Charts/utils';
+import ScatterPlotChart from './Charts/ScatterPlotChart/ScatterPlotChart';
+import List from './Charts/List/List';
 
 const Club = () => {
 	const books = JSON.parse(localStorage.getItem('books')) || [];
-	const transformedData = books && transformChartData(books);
+	const transformedData = transformChartData(books);
 	const userAverageRatings = transformedData && getUserAverageRatings(transformedData);
+	const meanBookAverageRating = getMeanBookAverageRating();
 
 	return (
 		<div>
@@ -17,8 +18,14 @@ const Club = () => {
 			)}
 			{ books.length && (
 				<Fragment>
-					<ScatterplotChart data={transformedData} />
-					<List data={userAverageRatings} title="Highest Average Rating" />
+					<ScatterPlotChart 
+						data={transformedData} 
+						mean={meanBookAverageRating} 
+					/>
+					<List 
+						data={userAverageRatings} 
+						title="Highest Average Rating" 
+					/>
 				</Fragment>
 			)}
 		</div>

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
+import './List.scss';
 
 const List = ({ data, title }) => {
-
 	return (
 		<div className='list-wrapper'>
 			<h3>Highest Average Rating</h3>

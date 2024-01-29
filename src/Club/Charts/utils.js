@@ -34,38 +34,38 @@ export function transformChartData(bookData) {
 	const max = {currentMax: 0};
 
 	bookData.forEach(entry => {
-			if (!entry.averageRating) {
-				return;
-			}
-			if (entry.averageRating < min.currentMin) {
-				min.bookId = entry.bookId;
-				min.currentMin = entry.averageRating;
-				min.user = entry.user;
-			}
-			if (entry.averageRating > max.currentMax) {
-				max.bookId = entry.bookId;
-				max.currentMax = entry.averageRating;
-				max.user = entry.user;
-			}
+		if (!entry.averageRating) {
+			return;
+		}
+		if (entry.averageRating < min.currentMin) {
+			min.bookId = entry.bookId;
+			min.currentMin = entry.averageRating;
+			min.user = entry.user;
+		}
+		if (entry.averageRating > max.currentMax) {
+			max.bookId = entry.bookId;
+			max.currentMax = entry.averageRating;
+			max.user = entry.user;
+		}
 
-			const id = entry.user;
-			const date = new Date(entry.createdAt);
-			const formattedDate = date && `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+		const id = entry.user;
+		const date = new Date(entry.createdAt);
+		const formattedDate = date && `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
 
-			if (!transformedData[id]) {
-				transformedData[id] = {
-					id: id,
-					data: []
-				};
-			}
+		if (!transformedData[id]) {
+			transformedData[id] = {
+				id: id,
+				data: []
+			};
+		}
 
-			transformedData[id].data.push({
-				x: formattedDate.toString(),
-				y: entry.averageRating,
-				book: entry.title,
-				author: entry.author,
-				id: entry.bookId
-			});
+		transformedData[id].data.push({
+			x: formattedDate.toString(),
+			y: entry.averageRating,
+			book: entry.title,
+			author: entry.author,
+			id: entry.bookId
+		});
 	});
 
 	// Add min and max key to highest and lowest rated books
@@ -91,4 +91,19 @@ export const getUserAverageRatings = (data) => {
 	});
 
 	return userAverageRatings.sort((a, b) => b.averageRating - a.averageRating);
+}
+
+export const getMeanBookAverageRating = () => {
+	// gets the mean of the average ratings (not weighted) for all books in the club
+	const books = JSON.parse(localStorage.getItem('books'));
+	if (!books) return 0;
+	const sum = books.reduce((acc, curr) => acc + curr.averageRating, 0);
+	return (sum / books.length).toFixed(2);
+}
+
+export const getMeanOfAllRatings = () => {
+	const ratings = JSON.parse(localStorage.getItem('ratings'));
+	if (!ratings) return 0;
+	const sum = ratings.reduce((acc, curr) => acc + curr.rating, 0);
+	return (sum / ratings.length).toFixed(2);
 }

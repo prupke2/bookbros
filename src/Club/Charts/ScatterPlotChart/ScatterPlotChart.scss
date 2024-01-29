@@ -1,0 +1,18 @@
+.scatterplot-chart-wrapper {
+	margin: 80px 30px;
+	max-width: 1800px;
+	min-width: 1000px;
+	height: 600px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background: var(--gradient-light);
+	color: black;
+	border-radius: 8px;
+	> div > div {
+		width: 97vw;
+		overflow: auto;
+	}
+}
