@@ -44,11 +44,6 @@ nav {
 				> a:hover {
 					background: transparent;
 				}
-
-				// .sub-menu {
-				// 	display: none;
-				// }
-				// background: var(--gradient);
 				img {
 					max-width: 100%;
 					max-height: 100%;
@@ -136,7 +131,12 @@ nav {
 						&:hover {
 							background: var(--gradient);
 							color: white;
-
+						}
+						.nav-tab-name {
+							display: flex;
+						}
+						.nav-tab-emoji {
+							display: none;
 						}
 					}	
 				}
@@ -152,6 +152,12 @@ nav {
 	}
 	nav ul li.nav-links ul li .nav-button {
 		padding: 0 10px 0 0;
+		.nav-tab-name {
+			display: none;
+		}
+		.nav-tab-emoji {
+			display: flex;
+		}
 	}
 }
 

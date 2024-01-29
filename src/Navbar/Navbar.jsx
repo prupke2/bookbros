@@ -1,6 +1,6 @@
 import React from 'react';
 import './Navbar.scss';
-import NavTab from './NavTab/NavTab';
+import NavTab from './NavTab';
 
 const Navbar = ({ brand, setBrand, currentTab, setTab }) => {
 
@@ -35,16 +35,19 @@ const Navbar = ({ brand, setBrand, currentTab, setTab }) => {
 					<ul>
 						<NavTab
 							name="Home"
+							emoji="🏠"
 							currentTab={currentTab}
 							setTab={setTab}
 						/>
 						<NavTab
 							name="Add a book"
+							emoji="🔎"
 							currentTab={currentTab}
 							setTab={setTab}
 						/>
 						<NavTab
 							name="Club"
+							emoji="📊"
 							currentTab={currentTab}
 							setTab={setTab}
 						/>
