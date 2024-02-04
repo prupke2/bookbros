@@ -27,7 +27,7 @@ export function transformChartData(bookData) {
 	// id is the google books id used to render the book cover image on the Home tab
 	// min and max are used to identify the highest and lowest rated books in the list
 
-	if (!bookData) return [];
+	if (!bookData || !bookData.length) return undefined;
 
 	const transformedData = {};
 	const min = {currentMin: 10};
@@ -69,8 +69,12 @@ export function transformChartData(bookData) {
 	});
 
 	// Add min and max key to highest and lowest rated books
-	transformedData[min.user].data.filter(entry => entry.id === min.bookId)[0].min = true;
-	transformedData[max.user].data.filter(entry => entry.id === max.bookId)[0].max = true;
+	if (min.user) {
+		transformedData[min.user].data.filter(entry => entry.id === min.bookId)[0].min = true;
+	}
+	if (max.user) {
+		transformedData[max.user].data.filter(entry => entry.id === max.bookId)[0].max = true;
+	}
 
 	return Object.values(transformedData);
 }
@@ -98,7 +102,8 @@ export const getMeanBookAverageRating = () => {
 	const books = JSON.parse(localStorage.getItem('books'));
 	if (!books) return 0;
 	const sum = books.reduce((acc, curr) => acc + curr.averageRating, 0);
-	return (sum / books.length).toFixed(2);
+	const booksWithRatings = books.filter(book => book.averageRating);
+	return (sum / booksWithRatings.length).toFixed(2);
 }
 
 export const getMeanOfAllRatings = () => {
