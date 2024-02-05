@@ -27,3 +27,10 @@ aside.tooltip-wrapper {
 .lowest-rated {
 	background: var(--red);
 }
+
+@media screen and (max-width: 800px) { 
+	aside.tooltip-wrapper {
+		max-width: 150px;
+		font-size: 0.7rem;
+	}
+}

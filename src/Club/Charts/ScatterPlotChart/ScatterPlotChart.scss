@@ -1,7 +1,6 @@
 .scatterplot-chart-wrapper {
 	margin: 80px 30px;
-	max-width: 1800px;
-	min-width: 1000px;
+	min-width: 450px;
 	height: 600px;
 	position: relative;
 	display: flex;
@@ -16,3 +15,10 @@
 		overflow: auto;
 	}
 }
+
+@media screen and (max-width: 800px) { 
+	.scatterplot-chart-wrapper {
+		margin: 80px 20px 80px 5px;
+	}
+}
+
