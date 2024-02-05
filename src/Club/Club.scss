@@ -1,0 +1,39 @@
+.small-text {
+	font-size: 1.1rem;
+}
+
+.big-name {
+	font-size: 1.5rem;
+	color: yellow;
+	mix-blend-mode: hard-light;
+}
+
+.spotlight {
+	font-family: var(--font1);
+	font-size: 1.3rem;
+	border-radius: 25px;
+	width: 60vw;
+	min-width: 400px;
+	margin: 15px auto;
+	padding: 10px;
+	color: white;
+	height: auto;
+	text-align: center;
+
+	p {
+		margin: 10px auto;
+	}
+}
+
+.spotlight-text {
+	color: white;
+	margin: 0 auto;
+}
+
+.highest-rated {
+	background: teal;
+}
+
+.lowest-rated {
+	background: crimson;
+}

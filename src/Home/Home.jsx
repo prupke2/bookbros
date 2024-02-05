@@ -99,7 +99,7 @@ const Home = () => {
 				<>
 					{!error && !isLoading && (
 						<Club
-							books={books}
+							brand={brand}
 						/>
 					)}
 					{error && (
