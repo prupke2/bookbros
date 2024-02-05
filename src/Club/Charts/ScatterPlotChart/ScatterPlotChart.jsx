@@ -6,7 +6,7 @@ const ScatterPlotChart = ({ data, mean }) => (
 	<div className='scatterplot-chart-wrapper'>
 		<ResponsiveScatterPlot
 			data={data}
-			margin={{ top: 60, right: 140, bottom: 70, left: 90 }}
+			margin={{ top: 70, right: 80, bottom: 70, left: 80 }}
 			nodeSize={18}
 			colors={{"scheme": "set1"}}
 			animate={true}
@@ -21,8 +21,12 @@ const ScatterPlotChart = ({ data, mean }) => (
 			yScale={{ type: 'linear', min: 0, max: 10 }}
 			yFormat=">-.2f"
 			blendMode="multiply"
-			axisTop={null}
 			axisRight={null}
+			axisLeft={{
+				legend: 'Rating',
+				legendPosition: 'middle',
+				legendOffset: -50,
+			}}
 			axisBottom={{
 				format: '%b %Y',
 				orient: 'bottom',
@@ -30,9 +34,6 @@ const ScatterPlotChart = ({ data, mean }) => (
 				tickPadding: 5,
 				// tickValues: 'every month', 
 				tickRotation: -45,
-				legend: 'Date',
-				legendPosition: 'middle',
-				legendOffset: 46,
 			}}
 			markers={[
 				{
@@ -46,29 +47,29 @@ const ScatterPlotChart = ({ data, mean }) => (
 				}
 			]}
 			// annotations={{
-      //   "text": {
-      //       "fontSize": 13,
-      //       "fill": "#333333",
-      //       "outlineWidth": 2,
-      //       "outlineColor": "#ffffff",
-      //       "outlineOpacity": 1
+      //   text: {
+			// 		fontSize: 13,
+			// 		fill: "#333333",
+			// 		outlineWidth: 2,
+			// 		outlineColor: "#ffffff",
+			// 		outlineOpacity: 1
       //   },
-      //   "link": {
-      //       "stroke": "#000000",
-      //       "strokeWidth": 1,
-      //       "outlineWidth": 2,
-      //       "outlineColor": "#ffffff",
-      //       "outlineOpacity": 1
-      //   },
+      //   // link: {
+      //   //   stroke: "#000000",
+      //   //   strokeWidth: 1,
+      //   //   outlineWidth: 2,
+      //   //   outlineColor: "#ffffff",
+      //   //   outlineOpacity: 1
+      //   // },
     	// }}
 			legends={[
 				{
-					anchor: 'bottom-right',
-					direction: 'column',
+					anchor: 'top-left',
+					direction: 'row',
 					justify: false,
-					translateX: 130,
-					translateY: 0,
-					itemWidth: 100,
+					translateX: -20,
+					translateY: -50,
+					itemWidth: 80,
 					itemHeight: 25,
 					itemsSpacing: 5,
 					itemDirection: 'left-to-right',
@@ -80,7 +81,7 @@ const ScatterPlotChart = ({ data, mean }) => (
 							style: {
 								itemOpacity: 1
 							}
-						}
+						},
 					]
 				}
 			]}
