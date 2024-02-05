@@ -1,0 +1,43 @@
+
+export const Logo = ({ brand }) => {
+	const brandFileName = brand === 'Book Bros' ? 'bookbros_logo.png' : 'bookbabes_logo.png';
+	return (
+		<div className="logo">
+			<img 
+				id="logo"
+				src={brandFileName} 
+				className="logo-appear"
+				alt={brand}	
+			 />
+		</div>
+	);
+};
+
+export const BookTitleAndAuthor = ({ 
+	title, author, averageRating, sameLine
+}) => (
+	<ul className= {`${sameLine && 'same-line'}`} >
+		<li className='book-title-wrapper'>
+			<span className="book-title">{title}</span>
+			{ author && (
+				<div className='book-author-wrapper'>
+					<span className="by">by </span>
+					<span className="book-author">{author}</span>
+				</div>
+			)}
+		</li>
+
+		{ averageRating && (
+			<li className='book-rating-wrapper'>
+				<span className={`rating-number rating-${Math.floor(averageRating)}`}>{averageRating}</span>
+			</li>
+		)}
+	</ul>
+);
+
+export const Empty = ({ noRatings }) => (
+	<div className="empty empty-short">
+		<div>Your club hasn't added any { noRatings ? 'ratings' : 'books' } yet!</div>
+	</div>
+);
+
