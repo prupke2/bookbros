@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Book from '../Books/Book/Book';
+import { Empty, Logo } from '../Components/Components';
 const Books = ({ brand, books, ratings, clubId }) => {
-	const brandFileName = brand === 'Book Bros' ? 'bookbros_logo.png' : 'bookbabes_logo.png';
 	const logo = document.querySelector("#logo");
 	const [scrollPosition, setScrollPosition] = useState(0);
 	const handleScroll = () => {
@@ -23,13 +23,8 @@ const Books = ({ brand, books, ratings, clubId }) => {
 
 	return (
 		<>
-			<img id="logo" className="logo-appear" src={brandFileName} alt={brand} />
-			{ !books.length && (
-				<div className="empty empty-short">
-					<div>Your club hasn't added any books yet!</div>
-				</div>
-			)}
-			{ books.length && (
+			<Logo brand={brand} />
+			{ !books.length ? <Empty /> :(
 				<ul>
 					{books?.map(
 						(book, index) => {

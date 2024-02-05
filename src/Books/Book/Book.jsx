@@ -3,6 +3,7 @@ import '../Books.scss';
 import RatingForm from '../RatingForm/RatingForm';
 import { useState } from 'react';
 import Ratings from '../Ratings/Ratings';
+import { BookTitleAndAuthor } from '../../Components/Components';
 
 const Book = ({ book, ratings, clubId }) => {
 	const { bookId, user, author, title, averageRating } = book;
@@ -61,18 +62,10 @@ const Book = ({ book, ratings, clubId }) => {
 			</figure>
 
 			<div className="book-details-and-ratings">
-				<ul>
-					<li className='book-title-wrapper'>
-						<span className="book-title">{title}</span>
-					</li>
-					{ author && (
-						<li className='book-author-wrapper'>
-							<span className="by">by </span>
-							<span className="book-author">{author}</span>
-						</li>
-					)}
-				</ul>
-
+				<BookTitleAndAuthor
+					title={title}
+					author={author}
+				/>
 				<Ratings
 					bookId={bookId}
 					clubId={clubId}
