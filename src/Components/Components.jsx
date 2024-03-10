@@ -13,6 +13,17 @@ export const Logo = ({ brand }) => {
 	);
 };
 
+const twoDecimalDigits = (num) => (Math.round(num * 100) / 100).toFixed(2);
+
+export const AverageRating = ({ averageRating }) => {
+	if (!averageRating) return null;
+	return (
+		<span className={`rating-number rating-${Math.floor(averageRating)}`}>
+			{twoDecimalDigits(averageRating)}
+		</span>
+		)
+};
+
 export const BookTitleAndAuthor = ({ 
 	title, author, averageRating, sameLine
 }) => (
@@ -29,7 +40,7 @@ export const BookTitleAndAuthor = ({
 
 		{ averageRating && (
 			<li className='book-rating-wrapper'>
-				<span className={`rating-number rating-${Math.floor(averageRating)}`}>{averageRating}</span>
+				<AverageRating averageRating={averageRating} />
 			</li>
 		)}
 	</ul>
