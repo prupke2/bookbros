@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import {
 	getHighestOwnBookRatings,
 	getMeanBookAverageRating,
+	getMeanOfListOfFloats,
 	getUserAverageRatings,
 	transformChartData,
 } from './Charts/utils';
@@ -21,6 +22,7 @@ const Club = ({ brand }) => {
 	const highestOwnBookRatings = transformedData && getHighestOwnBookRatings(usersWithRatedBooks, books, ratings);
 	const meanBookAverageRating = getMeanBookAverageRating();
 	const booksButNoRatings = books.length && !transformedData.length;
+	const meanRating = getMeanOfListOfFloats(ratings.map(rating => rating.rating));
 
 	return (
 		<div>
@@ -41,6 +43,10 @@ const Club = ({ brand }) => {
 							<ScatterPlotChart 
 								data={transformedData} 
 								mean={meanBookAverageRating} 
+							/>
+							<List
+								data={[{ averageRating: meanRating }]}
+								title="Average Rating Given"
 							/>
 							<div className='lists-wrapper'>
 								{ userAverageRatings && (

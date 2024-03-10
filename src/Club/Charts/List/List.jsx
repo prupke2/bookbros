@@ -8,10 +8,17 @@ const List = ({ data, title }) => (
 		<ul className='list'>
 			{ data && data.map((item, i) => (
 				<Fragment key={i}>
-					<li className='list-item-wrapper' key={i}>
-						<div className='name opaque-background'>{item.name}:</div>&nbsp;
-						<AverageRating averageRating={item.averageRating} />
-					</li>
+					{ !item.name && (
+						<li>
+							<AverageRating averageRating={item.averageRating} />
+						</li>
+					)}
+					{ item.name && (
+						<li className='list-item-wrapper' key={i}>
+							<div className='name opaque-background'>{item.name}:</div>&nbsp;
+							<AverageRating averageRating={item.averageRating} />
+						</li>
+					)}
 					<li className='list-spacer' />
 				</Fragment>
 			))}
