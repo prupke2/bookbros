@@ -97,6 +97,25 @@ export const getUserAverageRatings = (data) => {
 	return userAverageRatings.sort((a, b) => b.averageRating - a.averageRating);
 }
 
+export const getHighestOwnBookRatings = (users, books, ratings) => {
+
+	if (!books || !ratings) return null;
+
+	const userOwnRatingsList = [];
+	users.forEach(user => {
+		const userBooks = books.filter(book => book.user === user).map(book => book.bookId);
+		const userRatings = ratings.filter(rating => rating.name === user);
+		const userOwnRatings = userRatings.filter(r => userBooks.includes(r.book_id)).map(r => r.rating);
+		const averageOwnRating = userOwnRatings.reduce((acc, curr) => acc + curr, 0) / userOwnRatings.length;
+
+		// if a user has not rated any of their own books, the averageOwnRating will be NaN - return null instead
+		userOwnRatingsList.push({ name: user, averageRating: averageOwnRating || null }); 
+	}
+	);
+	return userOwnRatingsList;
+}
+
+
 export const getMeanBookAverageRating = () => {
 	// gets the mean of the average ratings (not weighted) for all books in the club
 	const books = JSON.parse(localStorage.getItem('books'));
@@ -107,6 +126,7 @@ export const getMeanBookAverageRating = () => {
 }
 
 export const getMeanOfAllRatings = () => {
+	// gets the mean of all ratings
 	const ratings = JSON.parse(localStorage.getItem('ratings'));
 	if (!ratings) return 0;
 	const sum = ratings.reduce((acc, curr) => acc + curr.rating, 0);
