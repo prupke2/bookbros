@@ -1,26 +1,45 @@
 import React, { Fragment } from 'react';
 import './List.scss';
-import { AverageRating } from '../../../Components/Components';
+import { AverageRating, BookTitleAndAuthor } from '../../../Components/Components';
 
-const List = ({ data, title }) => (
+const ListItem = ({ item, type }) => {
+	if (type === 'user') {
+		return (
+			<Fragment>
+				<li className='list-item-wrapper'>
+					<div className='name opaque-background'>{item.name}:</div>&nbsp;
+					<AverageRating averageRating={item.averageRating} />
+				</li>
+				<li className='list-spacer' />
+			</Fragment>
+		);
+	}
+	if (type === 'book') {
+		return (
+			<BookTitleAndAuthor
+				title={item.title}
+				author={item.author}
+				averageRating={item.averageRating}
+				sameLine
+			/>
+		)
+	}
+	if (type === 'rating') {
+		return (
+			<li>
+				<AverageRating averageRating={item.averageRating} />
+				<div className='list-spacer'></div>
+			</li>
+		);
+	}
+};
+
+const List = ({ data, title, type='user' }) => (
 	<div className='list-wrapper'>
 		<h3>{title}</h3>
 		<ul className='list'>
-			{ data && data.map((item, i) => (
-				<Fragment key={i}>
-					{ !item.name && (
-						<li>
-							<AverageRating averageRating={item.averageRating} />
-						</li>
-					)}
-					{ item.name && (
-						<li className='list-item-wrapper' key={i}>
-							<div className='name opaque-background'>{item.name}:</div>&nbsp;
-							<AverageRating averageRating={item.averageRating} />
-						</li>
-					)}
-					<li className='list-spacer' />
-				</Fragment>
+			{ data?.map((item, i) => (
+				<ListItem key={i} item={item} type={type} />
 			))}
 		</ul>
 	</div>
