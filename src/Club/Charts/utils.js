@@ -79,6 +79,10 @@ export function transformChartData(bookData) {
 	return Object.values(transformedData);
 }
 
+const sortAverageRatingsDesc = ratings => ratings.sort((a, b) => b.averageRating - a.averageRating);
+
+export const getMeanOfListOfFloats = list => list.reduce((acc, curr) => acc + curr, 0) / list.length;
+
 export const getUserAverageRatings = (data) => {
 	// Iterates through the transformed data and returns a sorted array of objects 
 	// with the user name and their average rating for all books in the club
@@ -94,7 +98,7 @@ export const getUserAverageRatings = (data) => {
 		userAverageRatings.push(userAverageRating);
 	});
 
-	return userAverageRatings.sort((a, b) => b.averageRating - a.averageRating);
+	return sortAverageRatingsDesc(userAverageRatings);
 }
 
 export const getHighestOwnBookRatings = (users, books, ratings) => {
@@ -106,13 +110,13 @@ export const getHighestOwnBookRatings = (users, books, ratings) => {
 		const userBooks = books.filter(book => book.user === user).map(book => book.bookId);
 		const userRatings = ratings.filter(rating => rating.name === user);
 		const userOwnRatings = userRatings.filter(r => userBooks.includes(r.book_id)).map(r => r.rating);
-		const averageOwnRating = userOwnRatings.reduce((acc, curr) => acc + curr, 0) / userOwnRatings.length;
+		const averageOwnRating = getMeanOfListOfFloats(userOwnRatings);
 
 		// if a user has not rated any of their own books, the averageOwnRating will be NaN - return null instead
 		userOwnRatingsList.push({ name: user, averageRating: averageOwnRating || null }); 
 	}
 	);
-	return userOwnRatingsList;
+	return sortAverageRatingsDesc(userOwnRatingsList);
 }
 
 
@@ -123,12 +127,4 @@ export const getMeanBookAverageRating = () => {
 	const sum = books.reduce((acc, curr) => acc + curr.averageRating, 0);
 	const booksWithRatings = books.filter(book => book.averageRating);
 	return (sum / booksWithRatings.length).toFixed(2);
-}
-
-export const getMeanOfAllRatings = () => {
-	// gets the mean of all ratings
-	const ratings = JSON.parse(localStorage.getItem('ratings'));
-	if (!ratings) return 0;
-	const sum = ratings.reduce((acc, curr) => acc + curr.rating, 0);
-	return (sum / ratings.length).toFixed(2);
 }
