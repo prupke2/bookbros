@@ -119,6 +119,13 @@ export const getHighestOwnBookRatings = (users, books, ratings) => {
 	return sortAverageRatingsDesc(userOwnRatingsList);
 }
 
+export const getHighestRatedBooks = (books, count=5) => (
+	books.sort((a, b) => b.averageRating - a.averageRating).slice(0, count)
+);
+
+export const getLowestRatedBooks = (books, count=5) => (
+	books.sort((a, b) => a.averageRating - b.averageRating).slice(0, count)
+);
 
 export const getMeanBookAverageRating = () => {
 	// gets the mean of the average ratings (not weighted) for all books in the club
