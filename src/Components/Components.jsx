@@ -16,10 +16,14 @@ export const Logo = ({ brand }) => {
 const twoDecimalDigits = (num) => (Math.round(num * 100) / 100).toFixed(2);
 
 export const AverageRating = ({ averageRating }) => {
-	if (!averageRating) return null;
+	if (!averageRating) return (
+		<span className="rating-number no-rating">
+			N/A
+		</span>
+	);
 	return (
 		<span className={`rating-number rating-${Math.floor(averageRating)}`}>
-			{twoDecimalDigits(averageRating)}
+			{!averageRating ? 'N/A' : twoDecimalDigits(averageRating)}
 		</span>
 		)
 };
