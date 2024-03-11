@@ -742,29 +742,6 @@ figcaption:hover div.rating-title {
 	box-shadow: 3px -1px 6px 6px rgba(153,181,247,1);;
 }	
 
-.rating-notes {
-	display: none;
-	font-style: italic;
-	position: absolute;
-	background: rgb(235, 242, 245);
-	border: 1px solid black;
-	border-radius: 4px;
-	margin-top: 40px;
-	margin-left: 30px;
-	width: 25vw;
-	padding: 5px;
-	left: 100px;
-	z-index: 10;
-}
-
-.rating {
-	position: relative;
-}
-
-.rating:hover .rating-notes {
-	display: block;
-}
-
 .book-image img {
 	width: 30vw;
 	height: auto;

@@ -11,11 +11,6 @@ ul.list {
 	margin: 10px 40px 10px 0;
 }
 
-li.horizontal-list {
-	display: table-row;
-
-}
-
 li.list-item-wrapper {
 	display: table-row;
 	height: 30px;
@@ -30,4 +25,36 @@ li.list-item-wrapper {
 .list-spacer {
 	display: table-cell;
 	height: 20px;
+}
+
+.rating-notes {
+	opacity: 0 !important;
+	font-style: italic;
+	position: absolute;
+	border: 1px solid black;
+	border-radius: 4px;
+	margin-top: 10px;
+	width: 250px;
+	padding: 5px;
+	left: -120px;
+	top: 15px;
+	z-index: 10;
+	text-align: left;
+	transition: opacity 0.3s ease;
+	background-color: white !important;
+}
+
+.hidden-rating {
+	position: absolute;
+	cursor: help;
+}
+
+.rating:hover {
+	.rating-notes {
+		background: rgba(255, 255, 255, 1) !important;
+		color: black;
+		opacity: 1 !important;
+		transition: opacity 0.2s ease;
+		height: 80px;
+	}
 }

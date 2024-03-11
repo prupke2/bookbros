@@ -74,12 +74,14 @@ const Club = ({ brand }) => {
 							<div className='lists-wrapper'>
 								<List 
 									data={userAverageRatings} 
-									title="Highest Average Rating" 
+									title="Highest Average Rating"
+									type="user"
 								/>
 								{ highestOwnBookRatings && (
 									<List 
 										data={highestOwnBookRatings} 
-										title="Highest Own Book Ratings" 
+										title="Highest Own Book Ratings"
+										type="user"
 									/>
 								)}
 							</div>

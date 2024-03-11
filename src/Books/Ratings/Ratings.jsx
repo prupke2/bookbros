@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { getRatingsForBook } from '../hooks';
 import './Ratings.scss';
+import List from '../../Club/Charts/List/List';
 
 const Ratings = ({ 
 	bookId, 
@@ -30,39 +31,27 @@ const Ratings = ({
 		}
 	}, [updateRatings, setBookRatings, setAverageRatingState, bookId, clubId]);
 
+	console.log('bookRatings:', bookRatings);
+
 	return (
 		<>
-			<ul className="ratings ">
-				{ bookRatings?.length === 0 && (
-					<li><em>No ratings yet</em></li>
-				)}
-				{ bookRatings?.map((rating, i) => (
-					<li 
-						key={i}
-						className="rating"
-					>
-						<span className="name opaque-background">{ rating.name }</span>:
-						<span className={`rating-number rating-${Math.floor(rating.rating)}`}>
-							{ rating.rating }
-						</span>
-						{ rating.notes && (
-							<>
-								&nbsp;💬
-								<span className="rating-notes">
-									{ rating.notes }
-								</span>
-							</>
-						)}
-					</li>
-				))}
-			</ul>
-			{ bookRatings?.length > 0 && (
-				<div className="average-rating">
-					<div className="average-rating-text">Average rating:</div>
-					<p className={`rating-number average-rating-number rating-${Math.floor(averageRatingState)}`}>
-							{averageRatingState?.toFixed(2)}
-					</p>
-				</div>
+			{ bookRatings?.length === 0 ? (
+				<em>No ratings yet</em>
+			) : (
+				<Fragment>
+					<List
+						data={bookRatings}
+						title={null}
+						type="user"
+						homePage
+					/>
+					<div className="average-rating">
+						<div className="average-rating-text">Average rating:</div>
+						<p className={`rating-number average-rating-number rating-${Math.floor(averageRatingState)}`}>
+								{averageRatingState?.toFixed(2)}
+						</p>
+					</div>
+				</Fragment>
 			)}
 		</>
 	)
