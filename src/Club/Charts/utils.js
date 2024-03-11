@@ -120,11 +120,15 @@ export const getHighestOwnBookRatings = (users, books, ratings) => {
 }
 
 export const getHighestRatedBooks = (books, count=5) => (
-	books.sort((a, b) => b.averageRating - a.averageRating).slice(0, count)
+	books.filter(book => book.averageRating)
+			 .sort((a, b) => b.averageRating - a.averageRating)
+			 .slice(0, count)
 );
 
 export const getLowestRatedBooks = (books, count=5) => (
-	books.sort((a, b) => a.averageRating - b.averageRating).slice(0, count)
+	books.filter(book => book.averageRating)
+			 .sort((a, b) => a.averageRating - b.averageRating)
+			 .slice(0, count)
 );
 
 export const getMeanBookAverageRating = () => {
