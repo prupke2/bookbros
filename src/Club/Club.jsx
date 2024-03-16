@@ -44,7 +44,7 @@ const Club = ({ brand }) => {
 					{ booksButNoRatings ? (
 						<Fragment>
 							<Logo brand={brand} />
-							<Empty noRatings />
+							<Empty object="ratings" />
 						</Fragment>
 					) : (
 						<Fragment>
