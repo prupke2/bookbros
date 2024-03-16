@@ -1,0 +1,26 @@
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip-content {
+    opacity: 0;
+    display: none;
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    padding: 5px;
+    border-radius: 4px;
+    width: 0;
+    font-size: 0.8rem;
+    width: 220px;
+    background-color: black;
+    color: white;
+    transition: opacity 0.2s ease;
+    z-index: 5;
+}
+
+.tooltip:hover .tooltip-content {
+    display: block;
+    opacity: 1;
+}
