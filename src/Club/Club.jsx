@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import {
 	getHighestOwnBookRatings,
 	getHighestRatedBooks,
@@ -55,18 +55,21 @@ const Club = ({ brand }) => {
 							<List
 								data={[{ averageRating: meanRating }]}
 								title="Average Rating Given"
+								tooltip="The average rating given in this club."
 								type="rating"
 							/>
 							<div className='lists-wrapper'>
 								<List 
 									data={highestRatedBooks} 
 									title="Highest Rated Books"
+									tooltip="Books with the highest average rating."
 									type="book"
 								/>
 								{ numberOfBooks > 5 && (
 									<List
 										data={lowestRatedBooks}
 										title="Lowest Rated Books"
+										tooltip="Books with the lowest average rating."
 										type="book"
 										/>
 								) }
@@ -75,11 +78,13 @@ const Club = ({ brand }) => {
 								<List 
 									data={userAverageRatings} 
 									title="Highest Average Rating" 
+									tooltip="Users whose selected books have the highest average rating."
 								/>
 								{ highestOwnBookRatings && (
 									<List 
 										data={highestOwnBookRatings} 
-										title="Highest Own Book Ratings" 
+										title="Highest Own Book Ratings"
+										tooltip="Users who gave the highest ratings for their own books."
 									/>
 								)}
 							</div>
