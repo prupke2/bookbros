@@ -55,7 +55,7 @@ const Club = ({ brand }) => {
 							<List
 								data={[{ averageRating: meanRating }]}
 								title="Average Rating Given"
-								tooltip="The average rating given in this club."
+								tooltip="The average of all ratings given in this club."
 								type="rating"
 							/>
 							<div className='lists-wrapper'>
