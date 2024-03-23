@@ -50,9 +50,9 @@ export const BookTitleAndAuthor = ({
 	</ul>
 );
 
-export const Empty = ({ noRatings }) => (
+export const Empty = ({ object = "books" }) => (
 	<div className="empty empty-short">
-		<div>Your club hasn't added any { noRatings ? 'ratings' : 'books' } yet!</div>
+		<div>Your club hasn't added any { object } yet!</div>
 	</div>
 );
 

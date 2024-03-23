@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { getRatingsForBook } from '../hooks';
 import './Ratings.scss';
+import Tooltip from '../../Tooltip/Tooltip';
 
 const Ratings = ({ 
 	bookId, 
@@ -46,12 +47,10 @@ const Ratings = ({
 							{ rating.rating }
 						</span>
 						{ rating.notes && (
-							<>
-								&nbsp;💬
-								<span className="rating-notes">
-									{ rating.notes }
-								</span>
-							</>
+							<Tooltip
+								content={rating.notes}
+								emoji='💬'
+							/>
 						)}
 					</li>
 				))}

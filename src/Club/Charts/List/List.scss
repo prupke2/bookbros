@@ -5,6 +5,15 @@
 	align-items: center;
 }
 
+.list-title-wrapper {
+	display: flex;
+	align-items: center;
+
+	h3 {
+		margin: 0 4px;
+	}
+}
+
 ul.list {
 	list-style: none;
 	display: table;

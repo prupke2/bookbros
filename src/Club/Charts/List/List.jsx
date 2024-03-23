@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import './List.scss';
 import { AverageRating, BookTitleAndAuthor } from '../../../Components/Components';
+import Tooltip from '../../../Tooltip/Tooltip';
 
 const ListItem = ({ item, type }) => {
 	if (type === 'user') {
@@ -34,9 +35,12 @@ const ListItem = ({ item, type }) => {
 	}
 };
 
-const List = ({ data, title, type='user' }) => (
+const List = ({ data, title, tooltip, type='user' }) => (
 	<div className='list-wrapper'>
-		<h3>{title}</h3>
+		<div className='list-title-wrapper'>
+			<h3>{title}</h3>
+			{ !tooltip ? null : <Tooltip content={tooltip} /> }
+		</div>
 		<ul className='list'>
 			{ data?.map((item, i) => (
 				<ListItem key={i} item={item} type={type} />
