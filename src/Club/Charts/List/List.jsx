@@ -37,8 +37,10 @@ const ListItem = ({ item, type }) => {
 
 const List = ({ data, title, tooltip, type='user' }) => (
 	<div className='list-wrapper'>
-		<h3>{title}</h3>
-		{ !tooltip ? null : <Tooltip content={tooltip} /> }
+		<div className='list-title-wrapper'>
+			<h3>{title}</h3>
+			{ !tooltip ? null : <Tooltip content={tooltip} /> }
+		</div>
 		<ul className='list'>
 			{ data?.map((item, i) => (
 				<ListItem key={i} item={item} type={type} />
