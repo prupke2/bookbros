@@ -1,14 +1,14 @@
 .tooltip {
     position: relative;
+    padding-top: 3px;
     cursor: help;
 }
 
 .tooltip-content {
-    opacity: 0;
     display: none;
     position: absolute;
-    top: -10px;
-    left: 20px;
+    top: 30px;
+    left: -96px;
     padding: 5px;
     border-radius: 4px;
     width: 0;
@@ -16,11 +16,19 @@
     width: 220px;
     background-color: black;
     color: white;
-    transition: opacity 0.2s ease;
     z-index: 5;
+
+    &.above-tooltip {
+        display: relative;
+        top: -7px;
+        left: -11px;
+        width: 0;
+        font-size: 3rem;
+        color: black;
+        background-color: transparent;
+    }
 }
 
 .tooltip:hover .tooltip-content {
     display: block;
-    opacity: 1;
 }
