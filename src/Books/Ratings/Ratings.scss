@@ -96,6 +96,8 @@
 }
 
 .rating {
+	position: relative;
+
 	.center {
 		text-align: center;
 	}
@@ -106,16 +108,88 @@
 	}
 }
 
-.rating-notes {
-	background: var(--main, skyblue);
 
+.rating-number {
+	color: black;
+	font-weight: bold;	
+	padding: 2px 4px;
+	border-radius: 4px;
+	min-width: 50px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.no-rating {
+	background-color: gainsboro;
+}
+
+.more {
+	background: var(--gradient2);
+}
+
+// Sets rating colours on a scale from red to green
+.rating-0 {
+	background: #FF0000;
+}
+.rating-1 {
+	background: #FF3300;
+}
+.rating-2 {
+	background: #ff6600;
+}
+.rating-3{
+	background: #ff9900;
+}
+.rating-4 {
+	background: #FFCC00;
+}
+.rating-5 {
+	background: #FFFF00;
+}
+.rating-6 {
+	background: #ccff00;
+}
+.rating-7 {
+	background: #99ff00;
+}
+.rating-8 {
+	background: #66ff00;
+}
+.rating-9 {
+	background: #33ff00;
+}
+.rating-10 {
+	background: #00FF00;
+	box-shadow: 3px -1px 6px 6px rgba(153,181,247,1);;
+}	
+
+.rating:hover .rating-notes {
+	display: block;
+}
+
+.rating-notes {
+	display: none;
+	font-style: italic;
+	position: absolute;
+	background: rgb(235, 242, 245);
+	border: 1px solid black;
+	border-radius: 4px;
+	margin-top: 40px;
+	margin-left: 30px;
+	padding: 5px;
+	left: 100px;
+	z-index: 10;
+	background: var(--main, skyblue);
+	width: 30vw;
+	min-width: 250px;
+	left: -50px;
 }
 
 p.rating-notes-show {
 	margin-bottom: 15px;
 	display: block;
 	background: var(--gradient);
-	width: 100%;
+	width: 200px;
 	padding: 5px;
 	border-radius: 4px;
 }

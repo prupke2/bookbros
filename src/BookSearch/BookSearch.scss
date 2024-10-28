@@ -246,7 +246,8 @@ body::-webkit-scrollbar-thumb {
 	transition: opacity 1s ease, z-index 2s ease;
 	transition-delay: 3s;
 	-webkit-animation-name: moveMessage;
-    -webkit-animation-duration: 3s; 
+    -webkit-animation-duration: 3s;
+		animation-duration: 3s;
     animation-name: moveMessage;
 }
 
