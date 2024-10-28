@@ -1,5 +1,6 @@
 import Parse from 'parse';
-import { calculateAverageRating } from '../../utils';
+import { calculateAverageRating, truncateString } from '../../utils';
+import { MAX_NOTE_LENGTH, MAX_USER_LENGTH } from '../../constants';
 
 export const getAverageRating = async (bookId, clubId) => {
 	const ratingQuery = new Parse.Query('Ratings').contains('book_id', bookId).contains('club', clubId);
@@ -20,10 +21,10 @@ export const setAverageRating = async (book, averageRating) => {
 
 export const saveRatingAsync = async (bookId, user, rating, notes, clubId) => {
 	const newRating = new Parse.Object('Ratings');
-	newRating.set('name', user);
+	newRating.set('name', truncateString(user, MAX_USER_LENGTH));
 	newRating.set('book_id', bookId);
 	newRating.set('rating', rating);
-	newRating.set('notes', notes);
+	newRating.set('notes', truncateString(notes, MAX_NOTE_LENGTH));
 	newRating.set('club', clubId);
 	try {
 		await newRating.save();
