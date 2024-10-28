@@ -472,6 +472,12 @@ figcaption {
 	margin-bottom: -78px;
 }
 
+h3.add-rating-title {
+	background-color: black;
+	padding: 4px;
+	border-radius: 4px;
+}
+
 .add-rating {
 	height: 36px;
 	margin: 150px auto 0;
@@ -542,15 +548,18 @@ form {
 		min-height: 80px;
 	}
 
-	input[type="submit"] {
+	input[type="submit"]:not(:disabled) {
 		height: 38px;
 		width: auto;
 		background: rgba(107, 209, 251, 1);
 	}
 
+	input[type="submit"]:disabled {
+		background: darkgray;
+	}
+
 	input[type="submit"]:hover:disabled {
 		cursor: not-allowed;
-		background-color: grey;
 	}
 }
 
@@ -688,83 +697,6 @@ figcaption:hover div.rating-title {
 	background: var(--opaque);
 }
 
-.rating-number {
-	color: black;
-	font-weight: bold;	
-	padding: 2px 4px;
-	border-radius: 4px;
-	min-width: 50px;
-	margin: 0 auto;
-	text-align: center;
-}
-
-.no-rating {
-	background-color: gainsboro;
-}
-
-.more {
-	background: var(--gradient2);
-}
-
-// Sets rating colours on a scale from red to green
-.rating-0 {
-	background: #FF0000;
-}
-.rating-1 {
-	background: #FF3300;
-}
-.rating-2 {
-	background: #ff6600;
-}
-.rating-3{
-	background: #ff9900;
-}
-.rating-4 {
-	background: #FFCC00;
-}
-.rating-5 {
-	background: #FFFF00;
-}
-.rating-6 {
-	background: #ccff00;
-}
-.rating-7 {
-	background: #99ff00;
-}
-.rating-8 {
-	background: #66ff00;
-}
-.rating-9 {
-	background: #33ff00;
-}
-.rating-10 {
-	background: #00FF00;
-	box-shadow: 3px -1px 6px 6px rgba(153,181,247,1);;
-}	
-
-.rating-notes {
-	display: none;
-	font-style: italic;
-	position: absolute;
-	background: rgb(235, 242, 245);
-	border: 1px solid black;
-	border-radius: 4px;
-	margin-top: 40px;
-	margin-left: 30px;
-	width: 25vw;
-	padding: 5px;
-	left: 100px;
-	z-index: 10;
-}
-
-.rating {
-	position: relative;
-}
-
-.rating:hover .rating-notes {
-	display: block;
-}
-
 .book-image img {
 	width: 30vw;
 	height: auto;
@@ -845,13 +777,9 @@ output {
 	text-align: center; 
 }
 
-
 // -------------------------- RANGE INPUT MIXINS --------------------------
 
 // Codepen to test this out: https://codepen.io/prupke/pen/wNVvJX
-
-
-
 
 @mixin range-inputs() { 
 	background: skyblue; 

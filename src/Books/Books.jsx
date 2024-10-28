@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Book from '../Books/Book/Book';
 import { Empty, Logo } from '../Components/Components';
-const Books = ({ brand, books, ratings, clubId }) => {
+
+const Books = ({ brand, books, ratings, clubId, setRefreshBooks }) => {
 	const logo = document.querySelector("#logo");
 	const [scrollPosition, setScrollPosition] = useState(0);
 	const handleScroll = () => {
@@ -9,6 +10,8 @@ const Books = ({ brand, books, ratings, clubId }) => {
 		setScrollPosition(position);
 	};
 
+	// Show logo when at the top and
+	// show faded logo if scrolled down a bit
 	useEffect(() => {
 		window.addEventListener('scroll', handleScroll, { passive: true });
 		if (scrollPosition > 40) {
@@ -39,6 +42,7 @@ const Books = ({ brand, books, ratings, clubId }) => {
 										book={book}
 										ratings={ratings.filter(r => r.book_id === book.bookId)}
 										clubId={clubId}
+										setRefreshBooks={setRefreshBooks}
 									/>
 									{ (index === 0 && books.length > 1) &&
 										<div className="book-text previous-books">| Previous books |</div>

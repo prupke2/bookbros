@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { saveRatingAsync, getAverageRating, setAverageRating } from './hooks';
 import CloseModalButton from '../../Modal/CloseModalButton';
+import { truncateString } from '../../utils';
+import { MAX_NOTE_LENGTH, MAX_USER_LENGTH } from '../../constants';
 
 const RatingForm = ({ 
 	book, 
@@ -10,13 +12,22 @@ const RatingForm = ({
 	setRatingFormOpen, 
 	setUpdateRatings,
 	setAverageRatingState,
+	setRefreshBooks,
 }) => {
 	const [currentRating, setCurrentRating] = useState('?');
 	let usernameLocalStorage = localStorage.getItem("bookbros_user_name");
 	const [username, setUsername] = useState(usernameLocalStorage || '');
 	const [notes, setNotes] = useState(null);
-	const submitEnabled = username && currentRating && (currentRating !== '?');
+	const noRating = (!currentRating || currentRating === '?') && currentRating !== 0;
+	const noUsernameError = !username && 'Enter your name.';
+	const noRatingError = noRating && 'Use the slide bar to set a rating.';
+	const submitError = noUsernameError || noRatingError;
+
 	const [saveButtonValue, setSaveButtonValue] = useState('Save');
+	const noteChangeHandler = (e) => {
+		const truncatedNote = truncateString(e.target.value, MAX_NOTE_LENGTH)
+		setNotes(truncatedNote)
+	}
 
 	const saveRating = async (event) => {
 		event.preventDefault();
@@ -35,6 +46,7 @@ const RatingForm = ({
 				setSaveButtonValue(ratingResult === true ? 'Saved' : '⚠️ Error');
 				setRatingFormOpen(false);
 				setUpdateRatings(true);
+				setRefreshBooks(true);
 				setTimeout(() => {
 					setSaveButtonValue('Save');
 				}, 1000);
@@ -60,13 +72,13 @@ const RatingForm = ({
 				setModalOpen={setRatingFormOpen}
 				type="rating-form"
 			/>
-			<h3>Add rating</h3>
+			<h3 className='add-rating-title'>Add rating</h3>
 			<label htmlFor="name">Name:</label>
 			<input 
 				type="text" 
 				defaultValue={username}
 				placeholder="Name"
-				maxLength={24} 
+				maxLength={MAX_USER_LENGTH} 
 				required
 				onInput={(e) => setUsername(e.target.value)}
 			/>
@@ -83,19 +95,20 @@ const RatingForm = ({
 				id="rating_rating"
 				defaultValue={currentRating || '?'}
 				required
-				onInput={(e) => setCurrentRating(parseFloat(e.target.value))}
+				onInput={e => setCurrentRating(parseFloat(e.target.value))}
 			/>
 			<textarea 
-				placeholder="Notes (optional)" 
-				maxLength={400} 
+				placeholder={`Notes (optional, max ${MAX_NOTE_LENGTH} characters)`}
+				maxLength={MAX_NOTE_LENGTH} 
 				resize="vertical"
 				height="80px"
-				onInput={(e) => setNotes(e.target.value)}
+				onInput={noteChangeHandler}
 			/>
 			<input 
-				type="submit" 
+				type="submit"
 				value={saveButtonValue}
-				disabled={!submitEnabled}
+				disabled={submitError}
+				title={submitError ? submitError : undefined}
 			/>
 		</form>
 	)

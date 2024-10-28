@@ -19,6 +19,8 @@ const Home = () => {
 	const [updateClub, setUpdateClub] = useState(true);
 	const [refreshBooks, setRefreshBooks] = useState(true);
 
+	const ready = !error && !isLoading;
+
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	const clubIdParam = urlParams.get('club_id');
@@ -53,12 +55,13 @@ const Home = () => {
 				setError(error);
 			}
 		};
+		
 		if (refreshBooks && currentTab === 'Home') {
 			fetchBooks();
 			setRefreshBooks(false);
 		}
 		setIsLoading(false);
-	}, [clubIdParam, clubId, currentTab, books, refreshBooks]);
+	}, [clubIdParam, clubId, currentTab, books, ratings, refreshBooks]);
 
 	return (
 		<main>
@@ -69,45 +72,33 @@ const Home = () => {
 				setTab={setTab}
 			/>
 			{ isLoading && <Loading /> }
-
-			{currentTab === 'Home' && (
-				<>
-					{!error && !isLoading && (
-						<Books 
-							brand={brand}
-							books={books}
-							ratings={ratings}
-							clubId={clubId}
-							setRefreshBooks={setRefreshBooks}
-						/>
-					)}
-				</>
+			{ error && (
+				<div className="error">
+					{error}
+				</div>
 			)}
 
-			{currentTab === 'Add a book' && (
-				<>
-					{!error && !isLoading && (
-						<BookSearch 
-							setTab={setTab}
-							setRefreshBooks={setRefreshBooks}
-						/>
-					)}
-				</>
+			{currentTab === 'Home' && ready && (
+				<Books 
+					brand={brand}
+					books={books}
+					ratings={ratings}
+					clubId={clubId}
+					setRefreshBooks={setRefreshBooks}
+				/>
 			)}
 
-			{currentTab === 'Club' && (
-				<>
-					{!error && !isLoading && (
-						<Club
-							brand={brand}
-						/>
-					)}
-					{error && (
-						<div className="error">
-							{error}
-						</div>
-					)}
-				</>
+			{currentTab === 'Add a book' && ready && (
+				<BookSearch 
+					setTab={setTab}
+					setRefreshBooks={setRefreshBooks}
+				/>
+			)}
+
+			{currentTab === 'Club' && ready && (
+				<Club
+					brand={brand}
+				/>
 			)}
 		</main>
 	);

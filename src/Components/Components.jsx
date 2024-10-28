@@ -1,3 +1,4 @@
+import { twoDecimalDigits } from "../utils";
 
 export const Logo = ({ brand }) => {
 	const brandFileName = brand === 'Book Bros' ? 'bookbros_logo.png' : 'bookbabes_logo.png';
@@ -12,8 +13,6 @@ export const Logo = ({ brand }) => {
 		</div>
 	);
 };
-
-const twoDecimalDigits = (num) => (Math.round(num * 100) / 100).toFixed(2);
 
 export const AverageRating = ({ averageRating }) => {
 	if (!averageRating) return (

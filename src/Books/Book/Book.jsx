@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Ratings from '../Ratings/Ratings';
 import { BookTitleAndAuthor } from '../../Components/Components';
 
-const Book = ({ book, ratings, clubId }) => {
+const Book = ({ book, ratings, clubId, setRefreshBooks }) => {
 	const { bookId, user, author, title, averageRating } = book;
 	const [updateRatings, setUpdateRatings] = useState(false);
 	const [ratingFormOpen, setRatingFormOpen] = useState(false);
@@ -56,6 +56,7 @@ const Book = ({ book, ratings, clubId }) => {
 							bookRatings={bookRatings}
 							setUpdateRatings={setUpdateRatings}
 							setAverageRatingState={setAverageRatingState}
+							setRefreshBooks={setRefreshBooks}
 						/>
 					</div>
 				</figcaption>
