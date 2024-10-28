@@ -105,10 +105,10 @@ const RatingForm = ({
 				onInput={noteChangeHandler}
 			/>
 			<input 
-				type="submit" 
+				type="submit"
 				value={saveButtonValue}
 				disabled={submitError}
-				title={submitError && submitError}
+				title={submitError ? submitError : undefined}
 			/>
 		</form>
 	)
