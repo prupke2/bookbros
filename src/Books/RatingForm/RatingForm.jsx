@@ -18,7 +18,11 @@ const RatingForm = ({
 	let usernameLocalStorage = localStorage.getItem("bookbros_user_name");
 	const [username, setUsername] = useState(usernameLocalStorage || '');
 	const [notes, setNotes] = useState(null);
-	const submitEnabled = username && currentRating && (currentRating !== '?');
+	const noRating = (!currentRating || currentRating === '?') && currentRating !== 0;
+	const noUsernameError = !username && 'Enter your name.';
+	const noRatingError = noRating && 'Use the slide bar to set a rating.';
+	const submitError = noUsernameError || noRatingError;
+
 	const [saveButtonValue, setSaveButtonValue] = useState('Save');
 	const noteChangeHandler = (e) => {
 		const truncatedNote = truncateString(e.target.value, MAX_NOTE_LENGTH)
@@ -103,8 +107,8 @@ const RatingForm = ({
 			<input 
 				type="submit" 
 				value={saveButtonValue}
-				disabled={!submitEnabled}
-				title={!submitEnabled && "Use the slide bar to set a rating."}
+				disabled={submitError}
+				title={submitError && submitError}
 			/>
 		</form>
 	)
