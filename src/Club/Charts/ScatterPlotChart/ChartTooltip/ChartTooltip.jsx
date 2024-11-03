@@ -1,6 +1,6 @@
-import './Tooltip.scss';
+import './ChartTooltip.scss';
 
-const Tooltip = ({ slice }) => (
+const ChartTooltip = ({ slice }) => (
 	<aside className="tooltip-wrapper">
 		<div className='tooltip-name'>{slice.serieId}</div>
 		<div className='tooltip-book book-title'>{slice.data.book}</div>
@@ -22,4 +22,4 @@ const Tooltip = ({ slice }) => (
 	</aside>
 );
 
-export default Tooltip;
+export default ChartTooltip;
