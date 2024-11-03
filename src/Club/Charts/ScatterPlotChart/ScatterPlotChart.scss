@@ -19,6 +19,7 @@
 @media screen and (max-width: 800px) { 
 	.scatterplot-chart-wrapper {
 		margin: 80px 20px 80px 5px;
+		overflow-x: scroll;
 	}
 }
 
