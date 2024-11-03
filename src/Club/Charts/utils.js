@@ -147,6 +147,7 @@ export const getLegends = (data) => {
 	const legendProps = {
 		anchor: 'top-left',
 		direction: 'row',
+		translateX: -35,
 		justify: false,
 		itemWidth: mobileUser ? 60 : 75,
 		itemHeight: 25,
@@ -173,7 +174,6 @@ export const getLegends = (data) => {
 			{
 				...legendProps,
 				translateY: -50,
-				translateX: -35,
 				symbolSize: 18,
 				itemsSpacing: 15,
 				itemHeight: 25,
@@ -184,7 +184,6 @@ export const getLegends = (data) => {
 		{
 			...legendProps,
 			translateY: -40,
-			translateX: -45,
 			symbolSize: 14,
 			itemsSpacing: 5,
 			itemHeight: 20,
