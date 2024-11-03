@@ -1,12 +1,15 @@
 import { ResponsiveScatterPlot } from '@nivo/scatterplot';
 import './ScatterPlotChart.scss';
-import Tooltip from './Tooltip/Tooltip';
+import ChartTooltip from './ChartTooltip/ChartTooltip';
+import { getLegends, mobileUser } from '../utils';
+
+const sideMargin = mobileUser ? 40 : 80;
 
 const ScatterPlotChart = ({ data, mean }) => (
 	<div className='scatterplot-chart-wrapper'>
 		<ResponsiveScatterPlot
 			data={data}
-			margin={{ top: 70, right: 80, bottom: 70, left: 80 }}
+			margin={{ top: 70, right: sideMargin, bottom: 70, left: sideMargin }}
 			nodeSize={18}
 			colors={{"scheme": "set1"}}
 			animate={true}
@@ -46,48 +49,8 @@ const ScatterPlotChart = ({ data, mean }) => (
 					textStyle: { fontSize: 12 },
 				}
 			]}
-			// annotations={{
-      //   text: {
-			// 		fontSize: 13,
-			// 		fill: "#333333",
-			// 		outlineWidth: 2,
-			// 		outlineColor: "#ffffff",
-			// 		outlineOpacity: 1
-      //   },
-      //   // link: {
-      //   //   stroke: "#000000",
-      //   //   strokeWidth: 1,
-      //   //   outlineWidth: 2,
-      //   //   outlineColor: "#ffffff",
-      //   //   outlineOpacity: 1
-      //   // },
-    	// }}
-			legends={[
-				{
-					anchor: 'top-left',
-					direction: 'row',
-					justify: false,
-					translateX: -20,
-					translateY: -50,
-					itemWidth: 80,
-					itemHeight: 25,
-					itemsSpacing: 5,
-					itemDirection: 'left-to-right',
-					symbolSize: 18,
-					symbolShape: 'circle',
-					effects: [
-						{
-							on: 'hover',
-							style: {
-								itemOpacity: 1
-							}
-						},
-					]
-				}
-			]}
-			tooltip={point => {
-				return <Tooltip slice={point.node} />;
-			}}
+			legends={getLegends(data)}
+			tooltip={point => <ChartTooltip slice={point.node} />}
 		/>
 	</div>
 );
