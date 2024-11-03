@@ -139,3 +139,55 @@ export const getMeanBookAverageRating = () => {
 	const booksWithRatings = books.filter(book => book.averageRating);
 	return (sum / booksWithRatings.length).toFixed(2);
 }
+
+export const mobileUser = window.screen.width < 800;
+
+export const getLegends = (data) => {
+	const itemCount = data?.length;
+	const legendProps = {
+		anchor: 'top-left',
+		direction: 'row',
+		justify: false,
+		itemWidth: mobileUser ? 60 : 75,
+		itemHeight: 25,
+		itemDirection: 'left-to-right',
+		symbolShape: 'circle',
+		effects: [
+			{
+				on: 'hover',
+				style: {
+					itemOpacity: 1
+				}
+			},
+			{
+				on: 'click',
+				style: {
+					color: 'white'
+				}
+			}
+		]
+	}
+
+	if (itemCount <= 4) {
+		return [
+			{
+				...legendProps,
+				translateY: -50,
+				translateX: -35,
+				symbolSize: 18,
+				itemsSpacing: 15,
+				itemHeight: 25,
+			}
+		]
+	}
+	return [
+		{
+			...legendProps,
+			translateY: -40,
+			translateX: -45,
+			symbolSize: 14,
+			itemsSpacing: 5,
+			itemHeight: 20,
+		}
+	];
+}
