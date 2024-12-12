@@ -1,5 +1,5 @@
 export const fetchGoogleBooks = async (search, setBookResults) => {
-	const query = `https://www.googleapis.com/books/v1/volumes?q=${search}&limit=5`;
+	const query = `https://www.googleapis.com/books/v1/volumes?q=${search}`;
 	fetch(query, {
     method: "GET",
   }).then(async (response) => {
