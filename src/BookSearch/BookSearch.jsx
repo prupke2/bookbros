@@ -7,18 +7,19 @@ import Loading from '../Loading/Loading';
 const BookSearch = ({ setTab, setRefreshBooks }) => {
 	const [bookSearch, setBookSearch] = useState(null);
 	const [bookResults, setBookResults] = useState([]);
+	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [lastBookSearch, setLastBookSearch] = useState(null);
 
-	const noResults = lastBookSearch !== null && bookResults?.length === 0 && !isLoading;
-	const showResults = bookSearch !== null && bookResults && !isLoading;
+	const noResults = !error && lastBookSearch !== null && bookResults?.length === 0 && !isLoading;
+	const showResults = !error && bookSearch !== null && bookResults && !isLoading;
 
 	const searchBooks = async (event) => {
 		event.preventDefault();
 		setLastBookSearch(bookSearch);
 		setIsLoading(true);
 		try {
-			fetchGoogleBooks(bookSearch, setBookResults);
+			fetchGoogleBooks(bookSearch, setBookResults, setError);
 		} catch (err) {
 			console.log('Error fetching books:', err);
 		} finally {
@@ -26,8 +27,7 @@ const BookSearch = ({ setTab, setRefreshBooks }) => {
 				setIsLoading(false);
 			}, 700);
 		}
-	}
-
+	};
 	const handleSearchInput = (search) => {
 		setBookSearch(search);
 	}
@@ -53,7 +53,11 @@ const BookSearch = ({ setTab, setRefreshBooks }) => {
 
 			{ isLoading && <Loading /> }
 
-			{ noResults && (
+			{ error && (
+				<p className="error-message">{error}</p>
+			)}
+
+			{ noResults && !error && (
 				<p>
 					No results found for {lastBookSearch}
 				</p>
