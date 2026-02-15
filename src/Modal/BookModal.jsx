@@ -2,7 +2,7 @@ import Modal from 'react-modal';
 import React, { useEffect, useState } from 'react';
 import CloseModalButton from './CloseModalButton';
 import './BookModal.scss';
-import { saveBookAsync } from './hooks';
+import { saveBookAsync } from './utils';
 import { coerceToString } from '../utils';
 
 const BookModal = ({ modalOpen, setModalOpen, setBookSaveResult, bookId, data, bookCoverLink }) => {
@@ -31,7 +31,6 @@ const BookModal = ({ modalOpen, setModalOpen, setBookSaveResult, bookId, data, b
 			console.log(`Error saving book: ${err}`);
 		}
 	};
-		
 
 	useEffect(() => {
 		// blurs background (aside from nav) while the modal is open
