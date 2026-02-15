@@ -96,7 +96,7 @@
 		margin: auto;
 	}
 
-	.close-button-wrapper {
+	.close-button-wrapper:not(.adjust-position) {
 		position: fixed;
 		top: 60px;
 		right: 15px;
