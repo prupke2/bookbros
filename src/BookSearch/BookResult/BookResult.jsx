@@ -1,20 +1,21 @@
 import React, { useState, useEffect }  from 'react';
 import BookModal from '../../Modal/BookModal';
+import useScrollPosition from '../../hooks/useScrollPosition';
 
 const BookResult = ({ result, setTab, setRefreshBooks }) => {
 	const bookId = result.id;
 	const bookCoverLink = `https://books.google.com/books/content/images/frontcover/${bookId}`;
 	const data = result?.volumeInfo;
 
-	const [modalOpen, setModalOpen] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [bookSaveResult, setBookSaveResult] = useState(null);
 
-	useEffect(() => {
+	useScrollPosition(isModalOpen);
 
+	useEffect(() => {
 		if (bookSaveResult) {
 			setRefreshBooks(true);
 			setTab("Home");
-			// window.history.replaceState(null, '', window.location.pathname);
 		}
 	}, [bookSaveResult, setRefreshBooks, setTab]);
 
@@ -22,7 +23,7 @@ const BookResult = ({ result, setTab, setRefreshBooks }) => {
 		<li>
 			<div 
 				className='book-cover-button' 
-				onClick={() => setModalOpen(true)}> 
+				onClick={() => setIsModalOpen(true)}> 
 				 <figure>
 					 <div 
 						 id={bookId} 
@@ -30,10 +31,10 @@ const BookResult = ({ result, setTab, setRefreshBooks }) => {
 						</div>
 				 </figure>
 			</div>
-			{ setModalOpen && (
+			{ setIsModalOpen && (
 				<BookModal
-					modalOpen={modalOpen}
-					setModalOpen={setModalOpen}
+					isModalOpen={isModalOpen}
+					setIsModalOpen={setIsModalOpen}
 					setBookSaveResult={setBookSaveResult}
 					bookId={bookId}
 					data={data}

@@ -1,9 +1,9 @@
 import React from "react";
 import './BookModal.scss';
 
-const CloseModalButton = ({ setModalOpen, type }) => (
+const CloseModalButton = ({ setIsModalOpen, type }) => (
   <div className={`close-button-wrapper ${type === 'rating-form' && 'adjust-position'}`}>
-    <button className="close-modal" onClick={() => setModalOpen(false)}>
+    <button className="close-modal" onClick={() => setIsModalOpen(false)}>
       x
     </button>
   </div>

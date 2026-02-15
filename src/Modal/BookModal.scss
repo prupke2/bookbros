@@ -4,14 +4,12 @@
 }
 
 .ReactModal__Content {
+	// override defaults from ReactModal library
 	position: fixed !important;
 	background-color: black !important;
-	border: 2px solid white !important;
-  width: 90vw;
-  min-width: 400px;
-  margin-left: 2vw;
-  height: 88vh;
-	margin-top: 3vh;
+  min-width: 300px;
+	height: 88vh;
+  margin-top: 3vh;
 }
 
 .book-cover-modal {
@@ -86,5 +84,37 @@
 }
 
 .blur-background {
-	filter: blur(2px);
+	filter: blur(4px);
+}
+
+@media screen and (max-width: 800px) {
+	.ReactModal__Content {
+		inset: 30px 2vw !important;
+	}
+	
+	.book-modal-img-wrapper {
+		margin: auto;
+	}
+
+	.close-button-wrapper:not(.adjust-position) {
+		position: fixed;
+		top: 60px;
+		right: 15px;
+	}
+
+	.book-cover-modal {
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		margin: 10px;
+	}
+
+	.book-modal-wrapper {
+		display: none;
+	}
+
+	.select-book-button-wrapper {
+		flex-direction: column;
+	}
 }
