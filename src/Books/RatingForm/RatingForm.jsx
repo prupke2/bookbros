@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { saveRatingAsync, getAverageRating, setAverageRating } from './hooks';
+import { saveRatingAsync, getAverageRating, setAverageRating } from './utils';
 import CloseModalButton from '../../Modal/CloseModalButton';
 import { truncateString } from '../../utils';
 import { MAX_NOTE_LENGTH, MAX_USER_LENGTH } from '../../constants';

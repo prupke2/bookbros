@@ -4,7 +4,7 @@ import './Home.scss';
 import Navbar from '../Navbar/Navbar';
 import Books from '../Books/Books';
 import BookSearch from '../BookSearch/BookSearch';
-import { getBooks, getRatings } from '../Books/hooks';
+import { getBooks, getRatings } from '../Books/utils';
 import Loading from '../Loading/Loading';
 import Club from '../Club/Club';
 

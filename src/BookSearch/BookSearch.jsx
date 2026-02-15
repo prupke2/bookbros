@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './BookSearch.scss';
-import { fetchGoogleBooks } from './hooks';
+import { fetchGoogleBooks } from './utils';
 import BookResult from './BookResult/BookResult';
 import Loading from '../Loading/Loading';
 

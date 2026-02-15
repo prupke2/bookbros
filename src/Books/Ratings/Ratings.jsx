@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { getRatingsForBook } from '../hooks';
+import { getRatingsForBook } from '../utils';
 import './Ratings.scss';
 import Tooltip from '../../Tooltip/Tooltip';
 
