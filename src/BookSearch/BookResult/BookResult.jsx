@@ -1,5 +1,6 @@
 import React, { useState, useEffect }  from 'react';
 import BookModal from '../../Modal/BookModal';
+import useScrollPosition from '../../hooks/useScrollPosition';
 
 const BookResult = ({ result, setTab, setRefreshBooks }) => {
 	const bookId = result.id;
@@ -9,12 +10,12 @@ const BookResult = ({ result, setTab, setRefreshBooks }) => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [bookSaveResult, setBookSaveResult] = useState(null);
 
-	useEffect(() => {
+	useScrollPosition(modalOpen);
 
+	useEffect(() => {
 		if (bookSaveResult) {
 			setRefreshBooks(true);
 			setTab("Home");
-			// window.history.replaceState(null, '', window.location.pathname);
 		}
 	}, [bookSaveResult, setRefreshBooks, setTab]);
 
