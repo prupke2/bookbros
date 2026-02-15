@@ -1,11 +1,11 @@
 import Modal from 'react-modal';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CloseModalButton from './CloseModalButton';
 import './BookModal.scss';
 import { saveBookAsync } from './hooks';
 import { coerceToString } from '../utils';
 
-const BookModal = ({ modalOpen, setModalOpen, setBookSaveResult, bookId, data, bookCoverLink }) => {
+const BookModal = ({ isModalOpen, setIsModalOpen, setBookSaveResult, bookId, data, bookCoverLink }) => {
 	const title = data?.title;
 	const authors = coerceToString(data?.authors || '');
 	const plural = data?.ratingsCount === 1 ? "" : "s" || '';
@@ -23,7 +23,7 @@ const BookModal = ({ modalOpen, setModalOpen, setBookSaveResult, bookId, data, b
 			const result = await saveBookAsync(bookId, username, title, authors, createdAt);
 			if (result === true) {
 				setBookSaveResult(true);
-				setModalOpen(false);
+				setIsModalOpen(false);
 			} else {
 				setBookSaveResult(false);
 			}
@@ -31,22 +31,11 @@ const BookModal = ({ modalOpen, setModalOpen, setBookSaveResult, bookId, data, b
 			console.log(`Error saving book: ${err}`);
 		}
 	};
-		
 
-	useEffect(() => {
-		// blurs background (aside from nav) while the modal is open
-		const bg = document.querySelector("main > div");
-		if (modalOpen) {
-			bg.classList.add('blur-background');
-		} else {
-			bg.classList.remove('blur-background');
-		}
-	}, [modalOpen])
-	
 	return (
 		<Modal
-			isOpen={modalOpen}
-			onRequestClose={() => setModalOpen(false)}
+			isOpen={isModalOpen}
+			onRequestClose={() => setIsModalOpen(false)}
 			contentLabel={title}
 			parentSelector={() => document.querySelector("main")}
 			id={bookId}
@@ -54,7 +43,7 @@ const BookModal = ({ modalOpen, setModalOpen, setBookSaveResult, bookId, data, b
 			overlayClassName={"book-cover-modal"}
 			shouldFocusAfterRender={true}
 		>
-			<CloseModalButton setModalOpen={setModalOpen} />
+			<CloseModalButton setIsModalOpen={setIsModalOpen} />
 			<figure
 				className="book-cover-modal"
 				id={bookId} 
