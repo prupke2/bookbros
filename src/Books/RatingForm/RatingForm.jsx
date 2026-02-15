@@ -69,7 +69,7 @@ const RatingForm = ({
 			onSubmit={(event) => saveRating(event)}	
 		>
 			<CloseModalButton 
-				setModalOpen={setRatingFormOpen}
+				setIsModalOpen={setRatingFormOpen}
 				type="rating-form"
 			/>
 			<h3 className='add-rating-title'>Add rating</h3>
