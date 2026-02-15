@@ -12,6 +12,7 @@ ________
 ## Ratings
 
 Easily add ratings to your books.
+
 ![Add Rating](main/public/readme_files/add_rating.png)
 
 ![View Ratings](main/public/readme_files/ratings.png)
@@ -20,8 +21,10 @@ ________
 ## Stats
 
 View a graph of the average ratings of all your club's books over time.
+
 ![Chart](main/public/readme_files/chart.png)
 
 View stats such as whose books are the most and least popular, and who rates their own book choices the highest.
+
 ![Stats](main/public/readme_files/stats.png)
 
