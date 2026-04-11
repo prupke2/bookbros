@@ -1,5 +1,7 @@
+import { GOOGLE_BOOKS_API_KEY, GOOGLE_BOOKS_VOLUMES_API_URL } from "./constants";
+
 export const fetchGoogleBooks = async (search, setBookResults, setError) => {
-	const query = `https://www.googleapis.com/books/v1/volumes?q=${search}&key=${process.env.GOOGLE_BOOKS_API_KEY}`;
+	const query = `${GOOGLE_BOOKS_VOLUMES_API_URL}?q=${search}&key=${GOOGLE_BOOKS_API_KEY}`;
 	try {
 		fetch(query, {
 			method: "GET",
