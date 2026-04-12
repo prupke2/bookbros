@@ -1,11 +1,13 @@
 aside.tooltip-wrapper {
 	background: var(--gradient-light);
-	max-width: 200px !important;
-	width: auto !important;
+	width: 200px !important;
 	padding: 5px;
 	border-radius: 4px;
 	padding: 5px;
 	font-size: 0.8rem;
+	> div {
+		margin: 4px 0;
+	}
 }
 
 .tooltip-book {
@@ -30,7 +32,8 @@ aside.tooltip-wrapper {
 
 @media screen and (max-width: 800px) { 
 	aside.tooltip-wrapper {
-		max-width: 150px;
 		font-size: 0.7rem;
+		width: 155px !important;
+		max-height: fit-content !important;
 	}
 }

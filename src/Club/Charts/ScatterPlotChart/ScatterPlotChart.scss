@@ -1,6 +1,6 @@
 .scatterplot-chart-wrapper {
-	margin: 80px 30px;
-	min-width: 450px;
+	margin: 80px 10px;
+	min-width: 430px;
 	height: 600px;
 	position: relative;
 	display: flex;
@@ -10,16 +10,29 @@
 	background: var(--gradient-light);
 	color: black;
 	border-radius: 8px;
-	> div > div {
-		width: 97vw;
-		overflow: auto;
+	overflow-y: hidden !important;
+	overflow-x: auto !important;
+	box-sizing: border-box;
+
+	.scatterplot-chart-canvas {
+		flex: 1 1 auto;
+		min-height: 0;
+		max-height: 100%;
+		width: 95vw !important;
+		overflow-y: hidden !important;
+		height: 100% !important;
+
+		// > div {
+		// 	height: 100% !important;
+		// }
 	}
 }
 
 @media screen and (max-width: 800px) { 
 	.scatterplot-chart-wrapper {
-		margin: 80px 20px 80px 5px;
+		// margin: 80px 20px 80px 5px;
 		overflow-x: scroll;
+		max-width: fit-content;
 	}
 }
 
